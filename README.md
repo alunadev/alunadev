@@ -14,11 +14,11 @@ This is my refined core product toolkit. I constantly try and test new tools (AI
 
 | Category | Key Tools |
 | :--- | :--- |
-| **Main** | Notion, Figma, Granola |
-| **AI Stack** | Gemini (Google AI Studio), Claude Code, v0, Lovable, Rork |
+| **Main** | Notion, Figma, Granola, Whispr Flow, Raycast |
+| **AI Stack** | Gemini (Google AI Studio), Antigravity, Claude Code, v0, Lovable, Replit, Vibecode (app), Rork (app) |
 | **Product Management** | Notion, Linear, ClickUp, Jira, Airtable |
 | **Data & Analytics** | Amplitude, PowerBI, Google Analytics |
 | **Automation** | Make, n8n, Zapier |
-| **Design/UX** | Figma, Miro |
+| **Design/UX** | Figma, Miro, Whimsical |
 | **Development** | Framer, Webflow, Supabase, Vercel, Shopify |
 
