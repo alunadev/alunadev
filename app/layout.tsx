@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Gelasio, Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { AgentationToolbar } from "@/app/components/agentation/AgentationToolbar";
 import { LoadingScreen } from "@/app/components/loading-screen";
 import "./globals.css";
@@ -45,6 +46,7 @@ export default function RootLayout({
         <LoadingScreen />
         {children}
         <AgentationToolbar />
+        <Analytics />
       </body>
     </html>
   );
