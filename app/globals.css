@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
+  /* Colors — semantic tokens. Light values are the defaults;
+     dark overrides live in [data-theme="dark"] below. */
+  --color-surface: #ffffff;
+  --color-surface-2: #fafafa;
   --color-border: #f1f1f1;
   --color-border-light: #f3f4f6;
   --color-divider: #e2e8f0;
@@ -23,8 +26,49 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
+/* ── Dark theme — palette from the Fable one-shot ── */
+[data-theme="dark"] {
+  --color-surface: #0a0a0e;
+  --color-surface-2: #101016;
+  --color-border: #1c1c24;
+  --color-border-light: #17171f;
+  --color-divider: #26262f;
+  --color-card-bg: #101016;
+  --color-icon-bg: #15151d;
+  --color-accent: #4d7cff;
+  --color-button-primary: #4d7cff;
+  --color-navy: #143d69;
+  --color-muted: #6b6a75;
+  --color-placeholder: #6b6a75;
+  --color-body: #b3b2ac;
+  --color-subtle: #9a99a3;
+  --color-secondary: #d5d4cd;
+  --color-primary: #f2f1ec;
+}
+
 html {
   font-family: var(--font-inter), system-ui, sans-serif;
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 /* Social icon hover — target SVG directly so transition is on the painted element */
@@ -32,19 +76,19 @@ html {
   color: var(--color-muted);
   transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-a:hover [data-platform="x"] svg        { color: #000000; }
+a:hover [data-platform="x"] svg        { color: var(--color-primary); }
 a:hover [data-platform="linkedin"] svg  { color: #0A66C2; }
-a:hover [data-platform="github"] svg    { color: #1B1F23; }
-a:hover [data-platform="email"] svg     { color: #315deb; }
-a:hover [data-platform="cv"] svg        { color: #315deb; }
+a:hover [data-platform="github"] svg    { color: var(--color-primary); }
+a:hover [data-platform="email"] svg     { color: var(--color-button-primary); }
+a:hover [data-platform="cv"] svg        { color: var(--color-button-primary); }
 
 /* Touch devices: show brand colors statically (no hover available) */
 @media (hover: none) {
-  [data-platform="x"] svg        { color: #000000; }
+  [data-platform="x"] svg        { color: var(--color-primary); }
   [data-platform="linkedin"] svg  { color: #0A66C2; }
-  [data-platform="github"] svg    { color: #1B1F23; }
-  [data-platform="email"] svg     { color: #315deb; }
-  [data-platform="cv"] svg        { color: #315deb; }
+  [data-platform="github"] svg    { color: var(--color-primary); }
+  [data-platform="email"] svg     { color: var(--color-button-primary); }
+  [data-platform="cv"] svg        { color: var(--color-button-primary); }
 }
 
 /* Animated icon paths — Mail flap + ExternalLink arrow */
@@ -69,3 +113,187 @@ a:hover .ext-link-arrow { transform: translate(1.5px, -1.5px); }
 .file-text-icon:hover .file-text-body-notched { opacity: 0; }
 .file-text-icon:hover .file-text-fold        { opacity: 0; }
 .file-text-icon:hover .file-text-body-plain  { opacity: 1; }
+
+/* ── Custom cursor (fine pointers only) ── */
+.aluna-cursor,
+.aluna-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 250;
+  pointer-events: none;
+  border-radius: 50%;
+  display: none;
+  opacity: 0;
+}
+.aluna-cursor {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-button-primary);
+  transform: translate(-50%, -50%);
+}
+.aluna-cursor-ring {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-divider);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+}
+.aluna-cursor-ring.is-hover {
+  width: 4rem;
+  height: 4rem;
+  border-color: var(--color-button-primary);
+  background: color-mix(in srgb, var(--color-button-primary) 8%, transparent);
+}
+body.cursor-active .aluna-cursor,
+body.cursor-active .aluna-cursor-ring {
+  opacity: 1;
+}
+@media (pointer: fine) {
+  .aluna-cursor,
+  .aluna-cursor-ring {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aluna-cursor,
+  .aluna-cursor-ring {
+    display: none;
+  }
+}
+
+/* ── Hero photo — B&W to color on hover ── */
+.hero-photo img {
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.6s ease;
+}
+.hero-photo:hover img {
+  filter: grayscale(0);
+}
+@media (hover: none) {
+  .hero-photo img {
+    filter: grayscale(0);
+  }
+}
+
+/* ── Stack orbit — tool logos orbiting the avatar ── */
+.stack-orbit {
+  --orbit-size: clamp(19rem, 76vw, 30rem);
+  position: relative;
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+}
+.stack-ring {
+  position: absolute;
+  border: 1px solid var(--color-divider);
+  border-radius: 50%;
+}
+.stack-ring-outer { inset: 0; }
+.stack-ring-inner { inset: 19%; }
+.stack-orbit-spin {
+  position: absolute;
+  inset: 0;
+  animation: stack-spin 60s linear infinite;
+}
+.stack-orbit-spin.reverse {
+  animation: stack-spin-rev 45s linear infinite;
+}
+.stack-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(var(--angle)) translateX(var(--radius))
+    rotate(calc(-1 * var(--angle))) translate(-50%, -50%);
+}
+/* counter-rotation keeps chips upright while the ring spins */
+.stack-orbit-spin .stack-chip-inner { animation: stack-spin-rev 60s linear infinite; }
+.stack-orbit-spin.reverse .stack-chip-inner { animation: stack-spin 45s linear infinite; }
+.stack-orbit:hover .stack-orbit-spin,
+.stack-orbit:hover .stack-chip-inner {
+  animation-play-state: paused;
+}
+@keyframes stack-spin { to { transform: rotate(360deg); } }
+@keyframes stack-spin-rev { to { transform: rotate(-360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .stack-orbit-spin,
+  .stack-orbit-spin .stack-chip-inner,
+  .stack-orbit-spin.reverse .stack-chip-inner {
+    animation: none;
+  }
+}
+
+/* ── Article prose — markdown body styling via tokens ── */
+.prose-aluna {
+  color: var(--color-body);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+.prose-aluna h2 {
+  font-family: var(--font-serif);
+  color: var(--color-primary);
+  font-size: 1.75rem;
+  line-height: 1.3;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.prose-aluna h3 {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+.prose-aluna p {
+  margin-bottom: 1.25rem;
+  max-width: 65ch;
+}
+.prose-aluna a {
+  color: var(--color-button-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-aluna ul,
+.prose-aluna ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.prose-aluna ul { list-style: disc; }
+.prose-aluna ol { list-style: decimal; }
+.prose-aluna li::marker { color: var(--color-muted); }
+.prose-aluna strong { color: var(--color-primary); font-weight: 600; }
+.prose-aluna blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin: 2rem 0;
+}
+.prose-aluna code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+}
+.prose-aluna pre {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+.prose-aluna pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.prose-aluna hr {
+  border: none;
+  border-top: 1px solid var(--color-divider);
+  margin: 2.5rem 0;
+}

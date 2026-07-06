@@ -124,7 +124,7 @@ export function LoadingScreen() {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 bg-white flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 bg-surface flex items-center justify-center pointer-events-none"
       style={{ zIndex: 999 }}
     >
       <div className="flex flex-col items-start gap-[6px]">
@@ -139,7 +139,7 @@ export function LoadingScreen() {
                 fontFamily: "var(--font-gelasio)",
                 fontSize: "1.125rem",
                 fontWeight: 400,
-                color: "#1a1a1a",
+                color: "var(--color-primary)",
                 letterSpacing: "2px",
               }}
             >
@@ -150,7 +150,7 @@ export function LoadingScreen() {
 
         {/* Progress line — dark fill over light track */}
         <div
-          style={{ width: "100%", height: "1px", background: "#e8e8e8", position: "relative" }}
+          style={{ width: "100%", height: "1px", background: "var(--color-divider)", position: "relative" }}
         >
           <div
             ref={lineFillRef}
@@ -160,7 +160,7 @@ export function LoadingScreen() {
               top: 0,
               height: "100%",
               width: "0%",
-              background: "#1a1a1a",
+              background: "var(--color-primary)",
             }}
           />
         </div>

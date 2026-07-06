@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Gelasio, Inter, JetBrains_Mono } from "next/font/google";
 import { AgentationToolbar } from "@/app/components/agentation/AgentationToolbar";
 import { LoadingScreen } from "@/app/components/loading-screen";
+import { CustomCursor } from "@/app/components/custom-cursor";
+import { ThemeToggle } from "@/app/components/theme-toggle";
 import "./globals.css";
 
 const gelasio = Gelasio({
@@ -23,13 +26,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Adrián Luna Díaz — Senior Product Manager",
+  title: "Adrián Luna Díaz — AI-first Senior Product Manager",
   description:
-    "Industrial Engineer turned Product Manager with 10 years of experience creating, launching, and scaling digital products.",
+    "AI-first Senior Product Manager and Product Builder turning product context into digital products, internal tools, code, and shipped outcomes.",
   openGraph: {
-    title: "Adrián Luna Díaz — Senior Product Manager",
+    title: "Adrián Luna Díaz — AI-first Senior Product Manager",
     description:
-      "Portfolio of Adrián Luna Díaz, Senior PM at LALIGA. Builder, AI-first, data-driven.",
+      "Portfolio of Adrián Luna Díaz, Senior PM at LALIGA. Product Builder, AI-first, data-driven.",
     type: "website",
   },
 };
@@ -41,9 +44,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${gelasio.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-white antialiased" suppressHydrationWarning>
+      <body className="bg-surface antialiased" suppressHydrationWarning>
+        {/* Apply saved theme before paint — light is the default */}
+        <Script id="aluna-theme" strategy="beforeInteractive">
+          {`try{if(localStorage.getItem("aluna-theme")==="dark"){document.documentElement.setAttribute("data-theme","dark")}}catch(e){}`}
+        </Script>
         <LoadingScreen />
         {children}
+        <ThemeToggle />
+        <CustomCursor />
         <AgentationToolbar />
       </body>
     </html>

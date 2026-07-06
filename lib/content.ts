@@ -4,9 +4,13 @@ import matter from "gray-matter";
 
 export type CaseStudyStatus = "available" | "not-ready" | false;
 
+export type ProjectGroup = "laliga" | "independent" | "earlier";
+
 export type Project = {
   slug: string;
   order: number;
+  group: ProjectGroup;
+  highlight: string;
   period: string;
   company: string;
   role: string;

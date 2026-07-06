@@ -66,7 +66,7 @@ export function FooterSection() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 lg:gap-4 bg-white border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-[0.875rem] lg:p-[1.0625rem] hover:border-divider active:border-divider transition-colors"
+                className="flex items-center gap-3 lg:gap-4 bg-surface border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-[0.875rem] lg:p-[1.0625rem] hover:border-divider active:border-divider transition-colors"
               >
                 {/* Icon container */}
                 <div
@@ -77,7 +77,7 @@ export function FooterSection() {
                 </div>
 
                 {/* Handle */}
-                <span className="text-[0.875rem] md:text-[0.9375rem] lg:text-[1rem] text-black tracking-[0.16px] flex-1">
+                <span className="text-[0.875rem] md:text-[0.9375rem] lg:text-[1rem] text-primary tracking-[0.16px] flex-1">
                   {link.handle}
                 </span>
 
