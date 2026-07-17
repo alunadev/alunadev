@@ -15,6 +15,7 @@ export type Project = {
   company: string;
   role: string;
   logoSrc: string;
+  logoFill?: boolean; // logo ships its own background → cover the whole AppIcon
   mockupSrc: string;
   mockupFrames?: string[];
   mockupBg: string;

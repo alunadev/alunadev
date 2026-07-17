@@ -10,16 +10,18 @@ type Tool = {
   src: string;
   ring: "outer" | "inner";
   angle: number; // degrees, 0 = right / -90 = top
+  fill?: boolean; // logo ships its own background → cover the whole chip
 };
 
 const TOOLS: Tool[] = [
-  { name: "Claude Code", src: "/images/stack/claude-code.png", ring: "outer", angle: -90 },
-  { name: "Figma", src: "/images/stack/figma.png", ring: "outer", angle: 0 },
+  { name: "Claude Code", src: "/images/stack/claude-code.png", ring: "outer", angle: -90, fill: true },
+  { name: "Figma", src: "/images/stack/figma.png", ring: "outer", angle: 0, fill: true },
   { name: "Codex", src: "/images/stack/codex.png", ring: "outer", angle: 90 },
-  { name: "Warp", src: "/images/stack/warp.png", ring: "outer", angle: 180 },
+  { name: "Warp", src: "/images/stack/warp.png", ring: "outer", angle: 180, fill: true },
   { name: "Notion", src: "/images/stack/notion.png", ring: "inner", angle: -30 },
-  { name: "Granola", src: "/images/stack/granola.png", ring: "inner", angle: 90 },
-  { name: "Wispr Flow", src: "/images/stack/wispr-flow.png", ring: "inner", angle: 210 },
+  { name: "Granola", src: "/images/stack/granola.png", ring: "inner", angle: 60, fill: true },
+  { name: "Wispr Flow", src: "/images/stack/wispr-flow.png", ring: "inner", angle: 150, fill: true },
+  { name: "Raycast", src: "/images/stack/raycast.png", ring: "inner", angle: 240, fill: true },
 ];
 
 function OrbitRing({ ring }: { ring: "outer" | "inner" }) {
@@ -42,7 +44,11 @@ function OrbitRing({ ring }: { ring: "outer" | "inner" }) {
               <img
                 src={tool.src}
                 alt={tool.name}
-                className="size-7 md:size-8 object-contain"
+                className={
+                  tool.fill
+                    ? "w-full h-full object-cover scale-110"
+                    : "size-7 md:size-8 object-contain"
+                }
               />
             </span>
             <span className="absolute top-full mt-2 text-[0.6875rem] text-subtle whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">

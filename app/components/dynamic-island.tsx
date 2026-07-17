@@ -100,7 +100,7 @@ export function DynamicIsland() {
   return (
     <div
       ref={ref}
-      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden"
+      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden transition-[width] duration-300 ease-out has-[[data-cv-btn]:hover]:w-[412px]"
     >
       {/* ── Hero variant — scroll cue ── */}
       <div
@@ -118,9 +118,15 @@ export function DynamicIsland() {
           href="/cv/adrian-luna-diaz.pdf"
           download
           aria-label="Download CV"
-          className="size-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0"
+          data-cv-btn
+          className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
         >
           <span data-platform="cv"><FileTextIcon className="size-6" /></span>
+          <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+            <span className="overflow-hidden">
+              <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
+            </span>
+          </span>
         </a>
       </div>
 
@@ -152,9 +158,15 @@ export function DynamicIsland() {
             href="/cv/adrian-luna-diaz.pdf"
             download
             aria-label="Download CV"
-            className="size-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px]"
+            data-cv-btn
+            className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
           >
             <span data-platform="cv"><FileTextIcon className="size-6" /></span>
+            <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+              <span className="overflow-hidden">
+                <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
+              </span>
+            </span>
           </a>
         </div>
       </div>

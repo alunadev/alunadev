@@ -53,13 +53,11 @@ export function ExperienceSection({ projects }: Props) {
     const img = previewImgRef.current;
     if (!preview || !img) return;
     if (window.innerWidth < 1024 || !window.matchMedia("(pointer: fine)").matches) return;
+    // No mockup → no floating preview (e.g. Pulse, Traveliè).
+    if (!project.mockupSrc) return;
 
-    const src = project.mockupSrc || project.logoSrc;
-    const contain = !project.mockupSrc;
-    img.src = src;
-    img.className = contain
-      ? "w-full h-full object-contain p-[15%]"
-      : "w-full h-full object-cover";
+    img.src = project.mockupSrc;
+    img.className = "w-full h-full object-cover";
     preview.style.background = project.mockupBg || "var(--color-card-bg)";
 
     if (!visibleRef.current) {
@@ -107,6 +105,7 @@ export function ExperienceSection({ projects }: Props) {
                       <>
                         <AppIcon
                           src={project.logoSrc}
+                          fill={project.logoFill}
                           className="size-10 md:size-11 lg:size-12"
                         />
 
