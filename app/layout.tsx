@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Gelasio, Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { AgentationToolbar } from "@/app/components/agentation/AgentationToolbar";
 import { LoadingScreen } from "@/app/components/loading-screen";
 import { CustomCursor } from "@/app/components/custom-cursor";
@@ -54,6 +55,7 @@ export default function RootLayout({
         <ThemeToggle />
         <CustomCursor />
         <AgentationToolbar />
+        <Analytics />
       </body>
     </html>
   );

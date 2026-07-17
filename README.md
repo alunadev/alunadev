@@ -1,26 +1,29 @@
-# Hi, I'm Adrian 👋
+Hey, I'm Adrian.
 
-I’m an **Industrial Engineer turned Product Manager** with 10 years of experience creating, launching, and scaling digital products. I currently lead the Official Products portfolio at LALIGA, shaping the vision and prioritizing initiatives that enhance the fan experience for millions.
+Senior PM and Product Builder. I define product direction and build with 
+AI agents, from internal tools and agent infrastructure to shipped products.
 
-I am specialized in full ownership of the product lifecycle, from vision to scale, and my focus is on **measurable outcomes** with an **AI-first and data-driven approach** for making an impact on the business.
+Currently leading the Official Products portfolio at LALIGA.
 
-## What I work on
+## What I've built
 
-**My approach to AI is that it should do augmentation.** Meaning, I use AI to produce the same quality as before, but in less time. I am deeply connected to the AI ecosystem, primarily through X, where I follow the latest AI releases to ensure my toolkit remains state-of-the-art.
+**AdOS**: LALIGA's internal operating system for digital ad inventory. 
+Handles capacity planning, proposals, sponsors and packages for the product 
+and commercial teams. Auth and security included.
 
-Currently, I use Claude Code in Warp as my primary driver for technical execution and research. What excites me most is how AI has transformed my role from a traditional PM into an AI Product Manager. Without being a professional developer, I am now able to write, implement, and deploy functional code. 
+**ald-os**: My personal AI PM operating system for Claude Code and Codex. 
+The public part is ald-skills — 50+ reusable skills covering product, 
+engineering and operations.
 
-## Tech Stack & Product Toolkit 🛠️
+**Fantasy MCP**: Internal read-only MCP server for the LALIGA Fantasy API, 
+used in product and data agent workflows.
 
-This is my refined core product toolkit. I constantly try and test new tools to stay updated on emerging technology stacks and trends, ensuring my approach remains sharp and scalable.
+**Pulse**: "Figma for analytics tagging." A shared workspace to define and 
+maintain tracking plans directly alongside product screens.
 
-| Category | Key Tools |
-| :--- | :--- |
-| **Main** | Notion, Claude Code in Warp, Figma, Linear, Granola, Whispr Flow, Raycast |
-| **AI Stack** | Claude Code, Warp, Gemini CLI, v0, Replit, Rork (app) |
-| **Product Management** | Linear, ClickUp, Jira |
-| **Data & Analytics** | Amplitude, Mixpanel, Optimize, Google Analytics, Posthog|
-| **Automation** | Make, n8n, Zapier |
-| **Design/UX** | Figma, Paper, Pencil, Miro, Whimsical |
-| **Development** | Google AI Studio and Antigravity, Lovable, Supabase, Vercel, Shopify |
+**[alunadev](https://alunadev.vercel.app)**: Personal portfolio, built with Claude Code.
 
+**[Cuatro Jugadores](https://www.cuatrojugadoresdepadel.com)**: Weekly padel 
+newsletter about technique and tactics.
+
+**Cue**: A native macOS teleprompter I built with Electron for personal use.
