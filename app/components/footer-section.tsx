@@ -4,7 +4,8 @@
 // Desktop (lg+): side by side
 
 import { socialLinks } from "@/lib/portfolio-data";
-import { ExternalLinkIcon, XIcon, LinkedInIcon, GitHubIcon } from "@/app/components/icons";
+import { ExternalLinkIcon, MailIcon, XIcon, LinkedInIcon, GitHubIcon } from "@/app/components/icons";
+import { SECTION_LABEL_TEXT_CLASS } from "@/app/components/section-label";
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
   x: <XIcon />,
@@ -23,9 +24,7 @@ export function FooterSection() {
           <div className="flex flex-col justify-between gap-5 lg:self-stretch lg:max-w-[360px]">
             {/* Block 1: Contact */}
             <div className="flex flex-col gap-3">
-              <p className="font-medium text-[0.6875rem] md:text-[0.75rem] lg:text-[0.875rem] text-muted tracking-[1.4px] uppercase">
-                FIND ME
-              </p>
+              <p className={SECTION_LABEL_TEXT_CLASS}>Find me</p>
               <p className="font-sans text-[0.75rem] font-normal text-subtle leading-4">
               Looking for a product-led team where great work moves the needle, ready to ship.
               </p>
@@ -33,8 +32,8 @@ export function FooterSection() {
                 href="mailto:lunadiazadrian@gmail.com"
                 className="inline-flex items-center gap-2 text-muted text-[0.75rem] font-normal hover:text-subtle transition-colors"
               >
+                <MailIcon className="size-3.5 shrink-0" />
                 lunadiazadrian@gmail.com
-                <ExternalLinkIcon className="size-3.5 shrink-0" />
               </a>
             </div>
 
@@ -53,7 +52,7 @@ export function FooterSection() {
                 © 2026 Adrián Luna Díaz. All rights reserved.
               </p>
               <p className="font-sans text-[0.7rem] font-normal text-subtle leading-4">
-                Built with Claude Code, designed in Figma.
+                Built and designed with Claude Code.
               </p>
             </div>
           </div>
@@ -66,7 +65,7 @@ export function FooterSection() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 lg:gap-4 bg-white border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-[0.875rem] lg:p-[1.0625rem] hover:border-divider active:border-divider transition-colors"
+                className="flex items-center gap-3 lg:gap-4 bg-surface border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-[0.875rem] lg:p-[1.0625rem] hover:border-divider active:border-divider transition-colors"
               >
                 {/* Icon container */}
                 <div
@@ -77,7 +76,7 @@ export function FooterSection() {
                 </div>
 
                 {/* Handle */}
-                <span className="text-[0.875rem] md:text-[0.9375rem] lg:text-[1rem] text-black tracking-[0.16px] flex-1">
+                <span className="text-[0.875rem] md:text-[0.9375rem] lg:text-[1rem] text-primary tracking-[0.16px] flex-1">
                   {link.handle}
                 </span>
 

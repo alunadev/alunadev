@@ -4,13 +4,18 @@ import matter from "gray-matter";
 
 export type CaseStudyStatus = "available" | "not-ready" | false;
 
+export type ProjectGroup = "laliga" | "independent" | "earlier";
+
 export type Project = {
   slug: string;
   order: number;
+  group: ProjectGroup;
+  highlight: string;
   period: string;
   company: string;
   role: string;
   logoSrc: string;
+  logoFill?: boolean; // logo ships its own background → cover the whole AppIcon
   mockupSrc: string;
   mockupFrames?: string[];
   mockupBg: string;
@@ -19,6 +24,7 @@ export type Project = {
   website: string;
   websiteUrl: string;
   caseStudy: CaseStudyStatus;
+  comingSoon?: boolean; // shows "Case study coming soon" note — opt-in per project, not implied by caseStudy status
 };
 
 // Extended type for case study detail pages — optional fields live in MDX frontmatter
@@ -27,8 +33,20 @@ export type CaseStudyDetail = Project & {
   tags?: string[];
   pullQuote?: string;
   problem?: string;
+  // Flat structure — used when a case study is a single build, not a series
+  // of shipped versions. Falls back to this when `milestones` is absent.
   approach?: string[];
   impact?: Array<{ metric: string; result: string }>;
+  // Versioned structure — used when a case study shipped in distinct,
+  // dated milestones (e.g. v1.0, v1.2). Each milestone carries its own
+  // items and, optionally, the metrics that milestone drove. Not every
+  // case study needs this — it's opt-in per project.
+  milestones?: Array<{
+    version: string;
+    title: string;
+    items: string[];
+    impact?: Array<{ metric: string; result: string }>;
+  }>;
   tools?: string[];
 };
 

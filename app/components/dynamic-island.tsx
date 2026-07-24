@@ -56,17 +56,20 @@ export function DynamicIsland() {
   }, []);
 
   // Scroll-linked position tracking + morph trigger
+  // V2: the hero is pinned (sticky) on desktop, so its content never exits the
+  // viewport. The morph now keys off #after-hero — the wrapper holding every
+  // section after the hero — covering the viewport as it slides over the hero.
   useEffect(() => {
     const el = ref.current;
-    const heroContent = document.querySelector<HTMLElement>("#hero > div");
-    if (!el || !heroContent) return;
+    const afterHero = document.getElementById("after-hero");
+    if (!el || !afterHero) return;
 
     const baseTop = () => window.innerHeight - BOTTOM_OFFSET - el.offsetHeight;
 
     const onScroll = () => {
       if (isNavRef.current) {
-        // Nav state — revert to hero if hero content re-enters viewport
-        if (heroContent.getBoundingClientRect().bottom > 0) {
+        // Nav state — revert to hero if the hero becomes visible again
+        if (afterHero.getBoundingClientRect().top > 0) {
           isNavRef.current = false;
           setIsNav(false);
           gsap.set(el, { top: Math.max(NAV_TOP, baseTop() - window.scrollY) });
@@ -75,8 +78,8 @@ export function DynamicIsland() {
         // Hero state — track island position with scroll
         gsap.set(el, { top: Math.max(NAV_TOP, baseTop() - window.scrollY) });
 
-        // Morph to nav the moment hero content fully exits viewport
-        if (heroContent.getBoundingClientRect().bottom <= 0) {
+        // Morph to nav the moment the after-hero content covers the hero
+        if (afterHero.getBoundingClientRect().top <= 0) {
           isNavRef.current = true;
           gsap.set(el, { top: NAV_TOP });
           // Ensure island is visible even if 3s fade-in hasn't fired yet
@@ -97,7 +100,7 @@ export function DynamicIsland() {
   return (
     <div
       ref={ref}
-      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-white border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden"
+      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden transition-[width] duration-300 ease-out has-[[data-cv-btn]:hover]:w-[412px]"
     >
       {/* ── Hero variant — scroll cue ── */}
       <div
@@ -106,18 +109,24 @@ export function DynamicIsland() {
         }`}
       >
         <div className="bg-icon-bg border border-border-light h-[48px] rounded-[8px] flex items-center gap-2 px-[17px] py-px shrink-0">
-          <span className="text-[16px] text-black tracking-[0.16px] whitespace-nowrap">
+          <span className="text-[16px] text-primary tracking-[0.16px] whitespace-nowrap">
             Scroll down to know more
           </span>
-          <MoveDown className="size-6 shrink-0 text-black" />
+          <MoveDown className="size-6 shrink-0 text-primary" />
         </div>
         <a
           href="/cv/adrian-luna-diaz.pdf"
           download
           aria-label="Download CV"
-          className="size-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0"
+          data-cv-btn
+          className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
         >
           <span data-platform="cv"><FileTextIcon className="size-6" /></span>
+          <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+            <span className="overflow-hidden">
+              <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
+            </span>
+          </span>
         </a>
       </div>
 
@@ -134,7 +143,7 @@ export function DynamicIsland() {
             className="absolute h-[150%] w-full left-0 top-[-11%] object-cover"
           />
         </div>
-        <span className="font-sans text-black text-[1rem] font-normal leading-normal tracking-[0.01rem] flex-1">
+        <span className="font-sans text-primary text-[1rem] font-normal leading-normal tracking-[0.01rem] flex-1">
           Adrián Luna Díaz
         </span>
         <div className="flex gap-2 items-center shrink-0">
@@ -149,9 +158,15 @@ export function DynamicIsland() {
             href="/cv/adrian-luna-diaz.pdf"
             download
             aria-label="Download CV"
-            className="size-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px]"
+            data-cv-btn
+            className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
           >
             <span data-platform="cv"><FileTextIcon className="size-6" /></span>
+            <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+              <span className="overflow-hidden">
+                <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
+              </span>
+            </span>
           </a>
         </div>
       </div>

@@ -1,128 +1,219 @@
 "use client";
 
-// Experience Section — Sticky card stacking mechanic (Tanuja Shastri style)
-// This file owns ONLY the scroll/stacking animation logic.
-// Card UI lives in ProjectCard (project-card.tsx).
-// Figma node: 2074:5453
+// Experience V2 — grouped project list in the V1 card language.
+// Groups: LALIGA umbrella → independent builds → earlier work.
+// Rows are soft cards (same shell as the footer social cards); on desktop with
+// a fine pointer, a floating mockup preview follows the cursor over each card.
+// Row target priority: case study page → external website → static card.
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Project } from "@/lib/content";
-import { ProjectCard } from "@/app/components/project-card";
+import type { Project, ProjectGroup } from "@/lib/content";
+import { AppIcon } from "@/app/components/app-icon";
+import { SectionLabel } from "@/app/components/section-label";
+import { ExternalLinkIcon } from "@/app/components/icons";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const BASE_TOP = 80;         // px from viewport top when a card is pinned
-const STACK_GAP = 20;        // peek offset between stacked cards
-const SCROLL_PER_CARD = 100; // vh of scroll before next card fully covers
+const GROUPS: Array<{ key: ProjectGroup; title: string; note: string }> = [
+  { key: "laliga", title: "LALIGA", note: "2021 — Now" },
+  { key: "independent", title: "Side projects", note: "2021 — Now" },
+  { key: "earlier", title: "Earlier", note: "2020 — 2021" },
+];
 
 type Props = {
   projects: Project[];
 };
 
 export function ExperienceSection({ projects }: Props) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const previewImgRef = useRef<HTMLImageElement>(null);
+  const visibleRef = useRef(false);
 
   useEffect(() => {
-    const mm = gsap.matchMedia();
+    const preview = previewRef.current;
+    if (!preview) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Width is checked at hover time (showPreview), not at mount — the
+    // viewport can cross the lg breakpoint after this effect runs.
 
-    mm.add("(min-width: 1024px)", () => {
-      const ctx = gsap.context(() => {
-        // Stacking scale animation.
-        // start: "top 70%" — starts later than before, leaving scroll room
-        // for the crossfade to complete before Urbiotica begins to rise.
-        cardRefs.current.forEach((card, i) => {
-          const nextCard = cardRefs.current[i + 1];
-          if (!card || !nextCard) return;
+    gsap.set(preview, { xPercent: -50, yPercent: -50, scale: 0.85, opacity: 0 });
+    const px = gsap.quickTo(preview, "x", { duration: 0.45, ease: "power3.out" });
+    const py = gsap.quickTo(preview, "y", { duration: 0.45, ease: "power3.out" });
 
-          gsap.fromTo(
-            card,
-            { scale: 1 },
-            {
-              scale: 0.96,
-              ease: "none",
-              scrollTrigger: {
-                trigger: nextCard,
-                start: "top 70%",
-                end: "top top",
-                scrub: true,
-              },
-            }
-          );
-        });
-
-        // Mockup crossfade animation — only for cards with two frames.
-        // trigger: card  →  fires based on the card's own natural scroll position.
-        // start: "top top+=N"  →  fires exactly when the card reaches its sticky top (settled).
-        // end: "+=20vh"  →  crossfade runs for 20vh of subsequent scroll.
-        // Stacking starts at "top 70%" of nextCard, which fires after the crossfade window.
-        cardRefs.current.forEach((card, i) => {
-          if (!card) return;
-          const frame2 = card.querySelector<HTMLElement>("[data-mockup-frame='2']");
-          if (!frame2) return;
-
-          const stickyTop = BASE_TOP + i * STACK_GAP;
-
-          gsap.fromTo(
-            frame2,
-            { opacity: 0 },
-            {
-              opacity: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                start: `top top+=${stickyTop}`,
-                end: "+=20vh",
-                scrub: true,
-              },
-            }
-          );
-        });
-      }, sectionRef);
-
-      return () => ctx.revert();
-    });
-
-    return () => mm.revert();
+    const onMove = (e: MouseEvent) => {
+      px(e.clientX);
+      py(e.clientY);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  const n = projects.length;
+  const showPreview = (project: Project) => {
+    const preview = previewRef.current;
+    const img = previewImgRef.current;
+    if (!preview || !img) return;
+    if (window.innerWidth < 1024 || !window.matchMedia("(pointer: fine)").matches) return;
+    // No mockup → no floating preview (e.g. Pulse, Traveliè).
+    if (!project.mockupSrc) return;
+
+    img.src = project.mockupSrc;
+    img.className = "w-full h-full object-cover";
+    preview.style.background = project.mockupBg || "var(--color-card-bg)";
+
+    if (!visibleRef.current) {
+      visibleRef.current = true;
+      gsap.to(preview, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
+    }
+  };
+
+  const hidePreview = () => {
+    const preview = previewRef.current;
+    if (!preview || !visibleRef.current) return;
+    visibleRef.current = false;
+    gsap.to(preview, { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in" });
+  };
 
   return (
-    <section ref={sectionRef} id="experience" className="w-full">
-      <div className="flex justify-center px-6 pt-12 pb-16 md:px-10 md:pt-16 md:pb-20 lg:px-[8.75rem] lg:pt-20 lg:pb-[7.5rem]">
+    <section id="experience" className="w-full">
+      <div className="flex justify-center px-6 pt-16 pb-16 md:px-10 md:pt-20 md:pb-20 lg:px-[8.75rem] lg:pt-24 lg:pb-[7.5rem]">
         <div className="w-full max-w-[1060px]">
 
-          {/* EXPERIENCE label */}
-          <p className="font-medium text-[1rem] md:text-[1.25rem] lg:text-[1.5rem] text-muted tracking-[1.4px] uppercase mb-8 md:mb-10 lg:mb-12">
-            Experience
-          </p>
+          <SectionLabel>Experience</SectionLabel>
 
-          {/* Stacking scroll container */}
-          <div
-            className="relative lg:[min-height:var(--scroll-h)]"
-            style={{ "--scroll-h": `calc(${n - 1} * ${SCROLL_PER_CARD}vh)` } as CSSProperties}
-          >
-            {projects.map((project, i) => (
-              <div
-                key={project.slug}
-                ref={(el) => { cardRefs.current[i] = el; }}
-                className={`lg:sticky w-full rounded-[0.75rem] md:rounded-[1rem] lg:rounded-[1.25rem] overflow-hidden bg-white${i < projects.length - 1 ? " mb-10 md:mb-12 lg:mb-[4rem]" : ""}`}
-                style={{
-                  top: `${BASE_TOP + i * STACK_GAP}px`,
-                  zIndex: i + 1,
-                  boxShadow: "0 4px 32px 0 rgba(0,0,0,0.08)",
-                  transformOrigin: "top center",
-                }}
-              >
-                <ProjectCard project={project} />
+          {GROUPS.map((group) => {
+            const groupProjects = projects.filter((p) => p.group === group.key);
+            if (groupProjects.length === 0) return null;
+
+            return (
+              <div key={group.key} className="mb-10 md:mb-12 lg:mb-14 last:mb-0">
+                {/* Group header — footer "FIND ME" label language */}
+                <div className="flex items-baseline justify-between gap-4 mb-4">
+                  <p className="font-medium text-[0.6875rem] md:text-[0.75rem] lg:text-[0.875rem] text-muted tracking-[1.4px] uppercase">
+                    {group.title}
+                  </p>
+                  <p className="text-[0.75rem] text-subtle text-right">
+                    {group.note}
+                  </p>
+                </div>
+
+                {/* Project cards — same shell as footer social cards */}
+                <div className="flex flex-col gap-3">
+                  {groupProjects.map((project) => {
+                    const external = project.caseStudy !== "available" && !!project.websiteUrl;
+
+                    const cardContent = (
+                      <>
+                        <AppIcon
+                          src={project.logoSrc}
+                          fill={project.logoFill}
+                          className="size-10 md:size-11 lg:size-12"
+                        />
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="min-w-0">
+                              <h4 className="font-serif text-[1.25rem] md:text-[1.375rem] lg:text-[1.5rem] text-primary leading-tight tracking-[0.01em] [text-wrap:balance]">
+                                {project.company}
+                              </h4>
+                              <p className="text-[0.8125rem] md:text-[0.875rem] font-medium text-button-primary mt-1">
+                                {project.highlight}
+                              </p>
+                            </div>
+                            {/* Card action — three distinct states:
+                                available case study → blue button (V1 language)
+                                external redirect   → footer-style ExternalLink chip
+                                no destination      → nothing */}
+                            {project.caseStudy === "available" ? (
+                              <span className="inline-flex items-center gap-2 h-9 px-3 text-[0.75rem] md:h-10 md:px-4 md:text-[0.8125rem] lg:h-12 bg-button-primary text-white font-medium rounded-[0.5rem] shrink-0 whitespace-nowrap">
+                                Case study
+                                <ExternalLinkIcon className="size-4 shrink-0" />
+                              </span>
+                            ) : external ? (
+                              <span
+                                aria-hidden="true"
+                                className="flex size-9 md:size-10 lg:size-12 items-center justify-center bg-icon-bg border border-border-light rounded-[0.5rem] text-subtle shrink-0 transition-colors duration-300 group-hover:text-primary group-hover:border-divider"
+                              >
+                                <ExternalLinkIcon className="size-5 lg:size-6" />
+                              </span>
+                            ) : null}
+                          </div>
+
+                          <p className="text-[0.8125rem] md:text-[0.875rem] text-subtle leading-relaxed mt-2 max-w-[40rem] lg:max-w-[52rem] whitespace-pre-line">
+                            {project.description}
+                          </p>
+
+                          <p className="text-[0.75rem] text-muted mt-3">
+                            {project.period}
+                            <span aria-hidden="true"> · </span>
+                            {project.role}
+                            {project.comingSoon && (
+                              <>
+                                <span aria-hidden="true"> · </span>
+                                <span className="italic">Case study coming soon</span>
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      </>
+                    );
+
+                    const cardClass =
+                      "group flex items-start gap-3 lg:gap-4 bg-surface border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-[0.875rem] lg:p-[1.0625rem] hover:border-divider active:border-divider transition-colors";
+
+                    const hoverProps = {
+                      onMouseEnter: () => showPreview(project),
+                      onMouseLeave: hidePreview,
+                    };
+
+                    if (project.caseStudy === "available") {
+                      return (
+                        <Link
+                          key={project.slug}
+                          href={`/case-study/${project.slug}`}
+                          className={cardClass}
+                          {...hoverProps}
+                        >
+                          {cardContent}
+                        </Link>
+                      );
+                    }
+                    if (project.websiteUrl) {
+                      return (
+                        <a
+                          key={project.slug}
+                          href={project.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cardClass}
+                          {...hoverProps}
+                        >
+                          {cardContent}
+                        </a>
+                      );
+                    }
+                    return (
+                      <div key={project.slug} className={cardClass} {...hoverProps}>
+                        {cardContent}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
 
         </div>
+      </div>
+
+      {/* Floating mockup preview — desktop, fine pointer only */}
+      <div
+        ref={previewRef}
+        aria-hidden="true"
+        className="hidden lg:block fixed top-0 left-0 z-40 w-[22rem] aspect-[4/3] rounded-[0.75rem] overflow-hidden pointer-events-none opacity-0 shadow-[0_24px_64px_rgba(0,0,0,0.25)]"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img ref={previewImgRef} alt="" className="w-full h-full object-cover" />
       </div>
     </section>
   );

@@ -1,0 +1,58 @@
+---
+slug: ai-agents-as-execution-layer
+title: "AI agents as an execution layer: how I ship internal tools as a PM"
+date: "2026-06-15"
+summary: "My edge is not prompting. It is combining product judgment with AI-assisted execution to move from context to working products. Here is the operating pattern I use."
+tags: [AI-first, Product Builder, Internal Tools]
+readingTime: "6 min"
+draft: true
+---
+
+Most conversations about PMs and AI stop at productivity: write the PRD faster, summarize the meeting, draft the ticket. That framing undersells what is actually possible. Used well, AI agents are not a writing assistant. They are an **execution layer**.
+
+I operate as an AI-first Product Manager: I define product direction, then use Codex and Claude Code to build, validate, document and ship faster. My edge is not prompting. It is combining product judgment with AI-assisted execution to move from context to working products.
+
+## The pattern
+
+Every internal tool I have shipped follows the same loop:
+
+1. **Define the product or business problem.** Not the feature. The problem. Who is blocked, what does the manual process cost, what does "solved" look like.
+2. **Gather context and constraints.** Data sources, security boundaries, who can see what, what must never happen.
+3. **Design the product model first.** Entities, workflows, information architecture. This is PM work. The agent executes it, it does not invent it.
+4. **Build with the agent, review everything.** The agent writes code; I own acceptance. Tests, edge cases and documentation are part of the definition of done, not extras.
+5. **Ship small, learn from usage, iterate.**
+
+The important part: product judgment stays in the loop at every step. AI collapses the distance between deciding and having something real. It does not remove the deciding.
+
+## A real example: replacing a macro-heavy Excel
+
+The clearest case from my own work is AdOS, an internal commercial operations system I built to replace a spreadsheet workflow: ad inventory managed manually in a macro Excel, by country and product, with no strict control against overbooking and slow, error-prone proposal generation.
+
+The product model came first: inventory as a capacity ledger, proposals as a lifecycle, sponsors and product formats as first-class entities. Then the build, AI-assisted end to end: Next.js, Supabase with row-level security, tests, documentation.
+
+The part I care most about is the AI assistant inside it. It is deliberately boring:
+
+- **Read-only.** It answers questions about inventory, availability, proposals and sponsors. It does not create, edit, approve or sell anything.
+- **Governed by a harness.** Workspace-scoped context, an explicit tool registry, rate limits, safe error handling. The model does not do math. Server-side tools do.
+- **Designed for a V2 action path** where any write would require preview, permission checks, explicit confirmation and logging.
+
+That is what "AI-first" means to me in practice: not a chatbot bolted onto a product, but guardrails designed as product requirements.
+
+## Why PMs are well-positioned for this
+
+Building with agents rewards exactly the skills product managers already have:
+
+- Writing unambiguous specs. An agent is the most literal engineer you will ever brief.
+- Thinking in systems: data models, states, permissions, failure modes.
+- Ruthless scoping. Agents amplify scope creep if you let them.
+- Knowing what "good enough to learn from" looks like.
+
+You do not need to become a career software engineer. You need enough technical fluency to reason about APIs, data models, tests and shipping boundaries, and the discipline to review what the agent produces instead of trusting it.
+
+## Where this is going
+
+I maintain a personal operating system for this way of working: reusable skills, prompts, context files and guardrails that make every build faster than the last one. The tools will keep changing; the operating pattern is the durable part:
+
+> Define the problem. Own the product model. Let agents execute. Review everything. Ship.
+
+If you are a PM and you have not yet built something real with an agent (an internal tool, a prototype, an automation), that is the single highest-leverage skill you can develop this year.
