@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${gelasio.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${gelasio.variable} ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="bg-surface antialiased" suppressHydrationWarning>
         {/* Apply saved theme before paint — light is the default */}
         <Script id="aluna-theme" strategy="beforeInteractive">

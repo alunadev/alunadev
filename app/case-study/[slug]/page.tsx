@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllProjects, getProjectBySlug } from "@/lib/content";
+import { SECTION_LABEL_TEXT_CLASS } from "@/app/components/section-label";
+import { ExternalLinkIcon } from "@/app/components/icons";
 
 export async function generateStaticParams() {
   const projects = getAllProjects();
@@ -44,33 +46,31 @@ export default async function CaseStudyPage({
   return (
     <main className="min-h-screen bg-surface">
       {/* Top bar */}
-      <div className="w-full border-b border-border px-6 md:px-8 py-4">
+      <div className="w-full border-b border-border px-6 md:px-10 lg:px-[8.75rem] py-4">
         <Link
-          href="/"
+          href="/#experience"
           data-hover
-          className="inline-flex items-center gap-2 text-[14px] text-subtle hover:text-primary transition-colors"
+          className="inline-flex items-center gap-2 text-[0.875rem] text-subtle hover:text-primary transition-colors"
         >
           ← Back to portfolio
         </Link>
       </div>
 
       {/* Content */}
-      <div className="flex justify-center px-6 md:px-8 py-16 md:py-[80px]">
+      <div className="flex justify-center px-6 md:px-10 lg:px-[8.75rem] py-16 md:py-20 lg:py-24">
         <div className="w-full max-w-[760px] flex flex-col gap-12">
           {/* Header */}
           <div className="flex flex-col gap-5">
             {/* Case study label */}
-            <p className="font-mono text-[0.6875rem] text-muted tracking-[0.14em] uppercase">
-              Case study
-            </p>
+            <p className={SECTION_LABEL_TEXT_CLASS}>Case study</p>
 
             {/* Title */}
-            <h1 className="font-serif text-[2.5rem] md:text-[3rem] text-primary tracking-[0.01em] leading-tight [text-wrap:balance]">
+            <h1 className="font-serif text-[2rem] md:text-[2.5rem] lg:text-[3rem] text-primary tracking-[0.01em] leading-tight [text-wrap:balance]">
               {study.title ?? study.company}
             </h1>
 
             {/* Meta row */}
-            <div className="flex flex-wrap gap-x-6 gap-y-1 text-[14px] text-subtle tracking-[0.14px]">
+            <div className="flex flex-wrap gap-x-6 gap-y-1 text-[0.875rem] text-subtle tracking-[0.14px]">
               <span>{study.role}</span>
               <span aria-hidden="true">·</span>
               <span>{study.company}</span>
@@ -84,7 +84,7 @@ export default async function CaseStudyPage({
                 {study.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="border border-primary rounded-[52px] px-3 py-1 text-[12px] text-primary tracking-[0.12px]"
+                    className="border border-primary rounded-full px-3 py-1 text-[0.75rem] text-primary tracking-[0.12px]"
                   >
                     {tag}
                   </span>
@@ -122,66 +122,122 @@ export default async function CaseStudyPage({
           {/* Problem */}
           {study.problem && (
             <div className="flex flex-col gap-4">
-              <h2 className="font-semibold text-[12px] text-muted tracking-[1.4px] uppercase">
-                Problem
-              </h2>
-              <p className="text-[18px] text-primary leading-relaxed tracking-[0.18px]">
+              <h2 className={SECTION_LABEL_TEXT_CLASS}>Problem</h2>
+              <p className="text-[1.125rem] text-primary leading-relaxed tracking-[0.01em]">
                 {study.problem}
               </p>
             </div>
           )}
 
-          {study.approach && study.approach.length > 0 && (
-            <div className="h-px bg-divider" />
-          )}
+          {study.milestones && study.milestones.length > 0 ? (
+            <>
+              <div className="h-px bg-divider" />
 
-          {/* Approach */}
-          {study.approach && study.approach.length > 0 && (
-            <div className="flex flex-col gap-4">
-              <h2 className="font-semibold text-[12px] text-muted tracking-[1.4px] uppercase">
-                Approach
-              </h2>
-              <ul className="flex flex-col gap-3">
-                {study.approach.map((item, i) => (
-                  <li key={i} className="flex gap-4 items-start">
-                    <span className="font-mono text-muted text-[13px] mt-1 shrink-0">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[18px] text-primary leading-relaxed tracking-[0.18px]">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+              {/* Approach — versioned milestones, each with its own items and metrics */}
+              <div className="flex flex-col gap-4">
+                <h2 className={SECTION_LABEL_TEXT_CLASS}>Approach</h2>
+                <div className="flex flex-col gap-10">
+                  {study.milestones.map((milestone, mi) => (
+                    <div key={milestone.version} className="flex flex-col gap-4">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-mono text-muted text-[0.75rem] tracking-[0.05em] uppercase">
+                          {milestone.version}
+                        </span>
+                        <h3 className="font-serif text-[1.25rem] md:text-[1.375rem] text-primary tracking-[0.01em]">
+                          {milestone.title}
+                        </h3>
+                      </div>
 
-          {study.impact && study.impact.length > 0 && (
-            <div className="h-px bg-divider" />
-          )}
+                      <ul className="flex flex-col gap-3">
+                        {milestone.items.map((item, i) => (
+                          <li key={i} className="flex gap-4 items-start">
+                            <span className="font-mono text-muted text-[0.8125rem] mt-1 shrink-0">
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <span className="text-[1.125rem] text-primary leading-relaxed tracking-[0.01em]">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
 
-          {/* Impact */}
-          {study.impact && study.impact.length > 0 && (
-            <div className="flex flex-col gap-4">
-              <h2 className="font-semibold text-[12px] text-muted tracking-[1.4px] uppercase">
-                Impact
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {study.impact.map((row) => (
-                  <div
-                    key={row.metric}
-                    className="bg-card-bg border border-border rounded-[12px] p-6 flex flex-col gap-1"
-                  >
-                    <span className="text-[28px] font-semibold text-primary tracking-[0.28px] [font-variant-numeric:tabular-nums]">
-                      {row.result}
-                    </span>
-                    <span className="text-[14px] text-subtle tracking-[0.14px]">
-                      {row.metric}
-                    </span>
-                  </div>
-                ))}
+                      {milestone.impact && milestone.impact.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {milestone.impact.map((row) => (
+                            <div
+                              key={row.metric}
+                              className="bg-card-bg border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-6 flex flex-col gap-1"
+                            >
+                              <span className="text-[1.75rem] font-semibold text-primary tracking-[0.01em] [font-variant-numeric:tabular-nums]">
+                                {row.result}
+                              </span>
+                              <span className="text-[0.875rem] text-subtle tracking-[0.14px]">
+                                {row.metric}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {mi < study.milestones!.length - 1 && (
+                        <div className="h-px bg-divider mt-6" />
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
+          ) : (
+            <>
+              {study.approach && study.approach.length > 0 && (
+                <div className="h-px bg-divider" />
+              )}
+
+              {/* Approach — flat, single-build case studies */}
+              {study.approach && study.approach.length > 0 && (
+                <div className="flex flex-col gap-4">
+                  <h2 className={SECTION_LABEL_TEXT_CLASS}>Approach</h2>
+                  <ul className="flex flex-col gap-3">
+                    {study.approach.map((item, i) => (
+                      <li key={i} className="flex gap-4 items-start">
+                        <span className="font-mono text-muted text-[0.8125rem] mt-1 shrink-0">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-[1.125rem] text-primary leading-relaxed tracking-[0.01em]">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {study.impact && study.impact.length > 0 && (
+                <div className="h-px bg-divider" />
+              )}
+
+              {/* Impact */}
+              {study.impact && study.impact.length > 0 && (
+                <div className="flex flex-col gap-4">
+                  <h2 className={SECTION_LABEL_TEXT_CLASS}>Impact</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {study.impact.map((row) => (
+                      <div
+                        key={row.metric}
+                        className="bg-card-bg border border-border rounded-[0.625rem] md:rounded-[0.75rem] p-6 flex flex-col gap-1"
+                      >
+                        <span className="text-[1.75rem] font-semibold text-primary tracking-[0.01em] [font-variant-numeric:tabular-nums]">
+                          {row.result}
+                        </span>
+                        <span className="text-[0.875rem] text-subtle tracking-[0.14px]">
+                          {row.metric}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           {study.tools && study.tools.length > 0 && (
@@ -191,14 +247,12 @@ export default async function CaseStudyPage({
           {/* Tools */}
           {study.tools && study.tools.length > 0 && (
             <div className="flex flex-col gap-4">
-              <h2 className="font-semibold text-[12px] text-muted tracking-[1.4px] uppercase">
-                Tools
-              </h2>
+              <h2 className={SECTION_LABEL_TEXT_CLASS}>Tools</h2>
               <div className="flex flex-wrap gap-2">
                 {study.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="font-mono border border-primary rounded-[52px] px-3 py-1 text-[12px] text-primary tracking-[0.12px]"
+                    className="font-mono border border-primary rounded-full px-3 py-1 text-[0.75rem] text-primary tracking-[0.12px]"
                   >
                     {tool}
                   </span>
@@ -210,7 +264,7 @@ export default async function CaseStudyPage({
           {/* Footer nav */}
           <div className="mt-4 pt-8 border-t border-divider flex items-center justify-between gap-4">
             <Link
-              href="/"
+              href="/#experience"
               data-hover
               className="text-[0.875rem] text-subtle hover:text-primary transition-colors"
             >
@@ -220,17 +274,19 @@ export default async function CaseStudyPage({
               <Link
                 href={`/case-study/${next.slug}`}
                 data-hover
-                className="text-[0.875rem] text-button-primary hover:underline underline-offset-4"
+                className="inline-flex items-center gap-1.5 text-[0.875rem] text-button-primary hover:underline underline-offset-4"
               >
-                Next: {next.company} →
+                Next: {next.company}
+                <ExternalLinkIcon className="size-3.5" />
               </Link>
             ) : (
               <a
                 href="mailto:lunadiazadrian@gmail.com"
                 data-hover
-                className="text-[0.875rem] text-button-primary hover:underline underline-offset-4"
+                className="inline-flex items-center gap-1.5 text-[0.875rem] text-button-primary hover:underline underline-offset-4"
               >
-                Talk to me about this →
+                Talk to me about this
+                <ExternalLinkIcon className="size-3.5" />
               </a>
             )}
           </div>

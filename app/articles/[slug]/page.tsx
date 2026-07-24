@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
+import { ExternalLinkIcon } from "@/app/components/icons";
 
 export async function generateStaticParams() {
   return getAllArticles().map((a) => ({ slug: a.slug }));
@@ -54,11 +55,6 @@ export default async function ArticlePage({
               <span>{article.date}</span>
               <span aria-hidden="true">·</span>
               <span>{article.readingTime}</span>
-              {article.draft && (
-                <span className="text-button-primary border border-button-primary rounded-full px-2 py-0.5">
-                  Draft
-                </span>
-              )}
             </div>
             <h1 className="font-serif text-[2.25rem] md:text-[2.75rem] leading-tight text-primary tracking-[0.01em] mb-5 [text-wrap:balance]">
               {article.title}
@@ -77,6 +73,18 @@ export default async function ArticlePage({
                   </span>
                 ))}
               </div>
+            )}
+            {article.externalUrl && (
+              <a
+                href={article.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-hover
+                className="inline-flex items-center gap-1.5 text-[0.875rem] text-button-primary hover:underline underline-offset-4 mt-6"
+              >
+                Read the original publication
+                <ExternalLinkIcon className="size-3.5" />
+              </a>
             )}
           </header>
 

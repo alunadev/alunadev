@@ -12,11 +12,12 @@ import gsap from "gsap";
 import type { Project, ProjectGroup } from "@/lib/content";
 import { AppIcon } from "@/app/components/app-icon";
 import { SectionLabel } from "@/app/components/section-label";
+import { ExternalLinkIcon } from "@/app/components/icons";
 
 const GROUPS: Array<{ key: ProjectGroup; title: string; note: string }> = [
-  { key: "laliga", title: "LALIGA", note: "2021 — Now · Official digital ecosystem" },
-  { key: "independent", title: "Independent builds", note: "Side products · Product Builder" },
-  { key: "earlier", title: "Earlier", note: "2020 — 2021 · Where it started" },
+  { key: "laliga", title: "LALIGA", note: "2021 — Now" },
+  { key: "independent", title: "Side projects", note: "2021 — Now" },
+  { key: "earlier", title: "Earlier", note: "2020 — 2021" },
 ];
 
 type Props = {
@@ -78,7 +79,7 @@ export function ExperienceSection({ projects }: Props) {
       <div className="flex justify-center px-6 pt-16 pb-16 md:px-10 md:pt-20 md:pb-20 lg:px-[8.75rem] lg:pt-24 lg:pb-[7.5rem]">
         <div className="w-full max-w-[1060px]">
 
-          <SectionLabel>Selected Work</SectionLabel>
+          <SectionLabel>Experience</SectionLabel>
 
           {GROUPS.map((group) => {
             const groupProjects = projects.filter((p) => p.group === group.key);
@@ -126,21 +127,19 @@ export function ExperienceSection({ projects }: Props) {
                             {project.caseStudy === "available" ? (
                               <span className="inline-flex items-center gap-2 h-9 px-3 text-[0.75rem] md:h-10 md:px-4 md:text-[0.8125rem] lg:h-12 bg-button-primary text-white font-medium rounded-[0.5rem] shrink-0 whitespace-nowrap">
                                 Case study
-                                <span aria-hidden="true" className="ext-link-arrow inline-block">
-                                  →
-                                </span>
+                                <ExternalLinkIcon className="size-4 shrink-0" />
                               </span>
                             ) : external ? (
                               <span
                                 aria-hidden="true"
                                 className="flex size-9 md:size-10 lg:size-12 items-center justify-center bg-icon-bg border border-border-light rounded-[0.5rem] text-subtle shrink-0 transition-colors duration-300 group-hover:text-primary group-hover:border-divider"
                               >
-                                <span className="ext-link-arrow inline-block">→</span>
+                                <ExternalLinkIcon className="size-5 lg:size-6" />
                               </span>
                             ) : null}
                           </div>
 
-                          <p className="text-[0.8125rem] md:text-[0.875rem] text-subtle leading-relaxed mt-2 max-w-[38rem]">
+                          <p className="text-[0.8125rem] md:text-[0.875rem] text-subtle leading-relaxed mt-2 max-w-[40rem] lg:max-w-[52rem] whitespace-pre-line">
                             {project.description}
                           </p>
 
@@ -148,7 +147,7 @@ export function ExperienceSection({ projects }: Props) {
                             {project.period}
                             <span aria-hidden="true"> · </span>
                             {project.role}
-                            {project.caseStudy === "not-ready" && (
+                            {project.comingSoon && (
                               <>
                                 <span aria-hidden="true"> · </span>
                                 <span className="italic">Case study coming soon</span>
@@ -214,7 +213,7 @@ export function ExperienceSection({ projects }: Props) {
         className="hidden lg:block fixed top-0 left-0 z-40 w-[22rem] aspect-[4/3] rounded-[0.75rem] overflow-hidden pointer-events-none opacity-0 shadow-[0_24px_64px_rgba(0,0,0,0.25)]"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img ref={previewImgRef} src="" alt="" className="w-full h-full object-cover" />
+        <img ref={previewImgRef} alt="" className="w-full h-full object-cover" />
       </div>
     </section>
   );

@@ -12,8 +12,8 @@
     {
       "name": "fable-one-shot",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "/Users/adrianlunadiaz/ald-projects/alunadev/fable-one-shot"],
-      "cwd": "/Users/adrianlunadiaz/ald-projects/alunadev/fable-one-shot",
+      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "/Users/adrianlunadiaz/ald-projects/fable-one-shot"],
+      "cwd": "/Users/adrianlunadiaz/ald-projects/fable-one-shot",
       "port": 4173
     }
   ]

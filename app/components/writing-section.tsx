@@ -4,6 +4,7 @@
 import Link from "next/link";
 import type { Article } from "@/lib/articles";
 import { SectionLabel } from "@/app/components/section-label";
+import { ExternalLinkIcon } from "@/app/components/icons";
 
 type Props = {
   articles: Article[];
@@ -47,7 +48,7 @@ export function WritingSection({ articles }: Props) {
                       aria-hidden="true"
                       className="hidden md:flex size-10 lg:size-12 items-center justify-center bg-icon-bg border border-border-light rounded-[0.5rem] text-subtle shrink-0 transition-colors duration-300 group-hover:text-primary group-hover:border-divider"
                     >
-                      <span className="ext-link-arrow inline-block">→</span>
+                      <ExternalLinkIcon className="size-5 lg:size-6" />
                     </span>
                   </div>
 
@@ -59,12 +60,6 @@ export function WritingSection({ articles }: Props) {
                     {article.date}
                     <span aria-hidden="true"> · </span>
                     {article.readingTime}
-                    {article.draft && (
-                      <>
-                        <span aria-hidden="true"> · </span>
-                        <span className="text-button-primary font-medium">Draft</span>
-                      </>
-                    )}
                   </p>
                 </div>
               </Link>

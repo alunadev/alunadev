@@ -15,7 +15,7 @@ export default function ArticlesPage() {
       {/* Top bar */}
       <div className="w-full border-b border-border px-6 md:px-8 py-4">
         <Link
-          href="/"
+          href="/#writing"
           data-hover
           className="inline-flex items-center gap-2 text-[14px] text-subtle hover:text-primary transition-colors"
         >
@@ -48,11 +48,6 @@ export default function ArticlesPage() {
                   <span>{article.date}</span>
                   <span aria-hidden="true">·</span>
                   <span>{article.readingTime}</span>
-                  {article.draft && (
-                    <span className="text-button-primary border border-button-primary rounded-full px-2 py-0.5">
-                      Draft
-                    </span>
-                  )}
                 </div>
                 <h2 className="font-serif text-[1.5rem] md:text-[1.75rem] text-primary leading-snug transition-colors duration-300 group-hover:text-button-primary [text-wrap:balance]">
                   {article.title}

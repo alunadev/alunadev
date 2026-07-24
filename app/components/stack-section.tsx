@@ -15,9 +15,10 @@ type Tool = {
 
 const TOOLS: Tool[] = [
   { name: "Claude Code", src: "/images/stack/claude-code.png", ring: "outer", angle: -90, fill: true },
-  { name: "Figma", src: "/images/stack/figma.png", ring: "outer", angle: 0, fill: true },
-  { name: "Codex", src: "/images/stack/codex.png", ring: "outer", angle: 90 },
-  { name: "Warp", src: "/images/stack/warp.png", ring: "outer", angle: 180, fill: true },
+  { name: "Cursor", src: "/images/stack/cursor.svg", ring: "outer", angle: -18 },
+  { name: "Figma", src: "/images/stack/figma.png", ring: "outer", angle: 54, fill: true },
+  { name: "Codex", src: "/images/stack/codex.png", ring: "outer", angle: 126 },
+  { name: "Warp", src: "/images/stack/warp.png", ring: "outer", angle: 198, fill: true },
   { name: "Notion", src: "/images/stack/notion.png", ring: "inner", angle: -30 },
   { name: "Granola", src: "/images/stack/granola.png", ring: "inner", angle: 60, fill: true },
   { name: "Wispr Flow", src: "/images/stack/wispr-flow.png", ring: "inner", angle: 150, fill: true },
@@ -47,7 +48,7 @@ function OrbitRing({ ring }: { ring: "outer" | "inner" }) {
                 className={
                   tool.fill
                     ? "w-full h-full object-cover scale-110"
-                    : "size-7 md:size-8 object-contain"
+                    : "size-9 md:size-10 object-contain"
                 }
               />
             </span>
@@ -84,7 +85,7 @@ export function StackSection() {
 
             {/* Orbit */}
             <div className="flex-1 flex justify-center py-10">
-              <div className="stack-orbit" role="img" aria-label="Tool stack: Claude Code, Codex, Figma, Notion, Warp, Granola and Wispr Flow orbiting Adrián's avatar">
+              <div className="stack-orbit" role="img" aria-label="Tool stack: Claude Code, Cursor, Codex, Figma, Notion, Warp, Granola, Wispr Flow and Raycast orbiting Adrián's avatar">
                 <div className="stack-ring stack-ring-outer" aria-hidden="true" />
                 <div className="stack-ring stack-ring-inner" aria-hidden="true" />
 

@@ -7,14 +7,18 @@
 import { MapPin } from "lucide-react";
 import { MailIcon, XIcon, LinkedInIcon, GitHubIcon } from "@/app/components/icons";
 
-const FACTS: Array<{ label: string; value: string; logo?: string }> = [
-  { label: "Currently", value: "Senior PM @ LALIGA", logo: "/images/logo-laliga.png" },
-  { label: "Experience", value: "10 years" },
-  { label: "Background", value: "Industrial Engineering" },
-  { label: "Building", value: "AdOS · Pulse · ald-os" },
-];
+const CAREER_START_YEAR = 2014;
 
 export function HeroSection() {
+  const experienceYears = new Date().getFullYear() - CAREER_START_YEAR;
+
+  const FACTS: Array<{ label: string; value: string; logo?: string }> = [
+    { label: "Currently", value: "Senior PM @ LALIGA", logo: "/images/logo-laliga.png" },
+    { label: "Experience", value: `${experienceYears} years` },
+    { label: "Background", value: "Industrial Engineering" },
+    { label: "Building", value: "ald-os · Cuatro Jugadores · AdOS · Pulse" },
+  ];
+
   return (
     <section
       id="hero"
@@ -37,7 +41,7 @@ export function HeroSection() {
             {/* Positioning */}
             <p className="text-primary font-sans text-[1rem] md:text-[1.125rem] lg:text-[1.25rem] font-normal leading-relaxed tracking-[0.0125rem] max-w-[34rem]">
               AI-first Senior Product Manager &amp;{" "}
-              <span className="text-button-primary">Product Builder</span> — turning
+              <span className="text-button-primary">Product Builder</span> turning
               product context into digital products, internal tools, code and
               shipped outcomes.
             </p>
