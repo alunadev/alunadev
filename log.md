@@ -1,5 +1,12 @@
 # Session Log
 
+## 2026-07-24 — Published Portfolio V2 to main (PR #2)
+- model: claude-sonnet-5
+- status: done
+- issue: none
+- done: Adrian gave the go-ahead to publish. Excluded `tsconfig.tsbuildinfo` via `.gitignore` (was untracked build cache), committed the full session's work (`fa68d2a`), pushed `feat/portfolio-v2` (7 commits total), opened and merged [PR #2](https://github.com/alunadev/alunadev/pull/2) into `main` with a merge commit, synced local `main` to `origin/main`.
+- next: nothing pending — working tree is clean, `main` and `feat/portfolio-v2` both pushed. Case-study detail page work remains paused per Adrian's earlier request, resume only when he asks.
+
 ## 2026-07-22 (6) — Fixed .claude/start-dev.sh: was running production build, not dev server
 - model: claude-sonnet-5
 - status: done (uncommitted)
