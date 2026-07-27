@@ -1,5 +1,19 @@
 # Session Log
 
+## 2026-07-27 (3) — Rewrote anybrowser-newtab copy from Adrian's tweets
+- model: claude-sonnet-5
+- status: done (uncommitted)
+- issue: none
+- done: `content/case-studies/10-anybrowser-newtab.mdx` — Adrian didn't like the original README-derived copy, rewrote `highlight`/`description`/`achievements` to draw from his two tweets announcing the project ("loved this idea, built my own open-source version", "shipped in 5 nights", "5 minutes to set up your own"). Verified card text renders correctly via dev server.
+- next: still UNCOMMITTED alongside the rest of this card's changes — commit when Adrian gives the go.
+
+## 2026-07-27 (2) — Added anybrowser-newtab as a side project card
+- model: claude-sonnet-5
+- status: done (uncommitted)
+- issue: none
+- done: created `content/case-studies/10-anybrowser-newtab.mdx` (order 9, group `independent`, logo `/images/logo-ald-monogram.svg`, mockup copied to `public/images/mockups/anybrowser-newtab-mockup.png` from `~/ald-projects/anybrowser-newtab/docs/screenshot.png`, links to the GitHub repo, `caseStudy: false`). Verified in dev server: card renders in Side Projects after Pulse, logo/mockup load (200), no console errors. Confirmed no other local branches have pending work (`feat/add-ados-pulse-projects`, `test/fable-one-shot`, `origin/dev` all fully contained in `main`).
+- next: new `.mdx` + mockup image are UNCOMMITTED — commit when Adrian gives the go.
+
 ## 2026-07-24 — Published Portfolio V2 to main (PR #2)
 - model: claude-sonnet-5
 - status: done
