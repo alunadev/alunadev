@@ -12,7 +12,7 @@
 //   4. When #hero > div (main content block) fully exits viewport → morph to nav.
 //   5. Reverse: when hero content re-enters viewport → revert to hero state.
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import { MoveDown } from "lucide-react";
 import { MailIcon, FileTextIcon } from "@/app/components/icons";
@@ -21,6 +21,53 @@ const BOTTOM_OFFSET = 24;    // px from viewport bottom in hero state
 const NAV_TOP = 53;          // px from viewport top in nav state
 const FADE_IN_DELAY = 3;     // seconds after loading-complete before island appears
 const FADE_IN_DURATION = 0.6;
+
+// Island shell widths (see the has-[...] variants on the shell). Both variants are
+// absolutely positioned, so the shell can't size to its content — each hover state
+// needs an explicit width. Cost of a revealed label = text width (Inter 500, 15px)
+// + pl-2 (8px), on top of the 368px resting width:
+//   "Download CV"  97.5 + 8 → 106  ⇒ 474px
+//   "Send email"   79.0 + 8 →  87  ⇒ 455px
+//
+// Icon button that reveals its label on hover. The island widens to make room
+// (see the has-[...] width variants on the shell), so each marker attribute maps
+// to one of the widths above.
+type ActionMarker = "data-cv-btn" | "data-email-btn";
+
+function IslandAction({
+  href,
+  label,
+  platform,
+  marker,
+  icon,
+  download = false,
+}: {
+  href: string;
+  label: string;
+  platform: string;
+  marker: ActionMarker;
+  icon: ReactNode;
+  download?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      download={download}
+      aria-label={label}
+      {...{ [marker]: "" }}
+      className="group/action h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
+    >
+      <span data-platform={platform}>{icon}</span>
+      <span className="grid grid-cols-[0fr] group-hover/action:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
+        <span className="overflow-hidden">
+          <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">
+            {label}
+          </span>
+        </span>
+      </span>
+    </a>
+  );
+}
 
 export function DynamicIsland() {
   const ref = useRef<HTMLDivElement>(null);
@@ -100,7 +147,7 @@ export function DynamicIsland() {
   return (
     <div
       ref={ref}
-      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden transition-[width] duration-300 ease-out has-[[data-cv-btn]:hover]:w-[412px]"
+      className="hidden lg:block fixed left-1/2 -translate-x-1/2 z-50 bg-surface border border-border rounded-[12px] w-[368px] h-[82px] overflow-hidden transition-[width] duration-300 ease-out has-[[data-email-btn]:hover]:w-[455px] has-[[data-cv-btn]:hover]:w-[474px]"
     >
       {/* ── Hero variant — scroll cue ── */}
       <div
@@ -114,20 +161,14 @@ export function DynamicIsland() {
           </span>
           <MoveDown className="size-6 shrink-0 text-primary" />
         </div>
-        <a
+        <IslandAction
           href="/cv/adrian-luna-diaz.pdf"
           download
-          aria-label="Download CV"
-          data-cv-btn
-          className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
-        >
-          <span data-platform="cv"><FileTextIcon className="size-6" /></span>
-          <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
-            <span className="overflow-hidden">
-              <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
-            </span>
-          </span>
-        </a>
+          label="Download CV"
+          platform="cv"
+          marker="data-cv-btn"
+          icon={<FileTextIcon className="size-6" />}
+        />
       </div>
 
       {/* ── Nav variant — avatar + contact ── */}
@@ -147,27 +188,21 @@ export function DynamicIsland() {
           Adrián Luna Díaz
         </span>
         <div className="flex gap-2 items-center shrink-0">
-          <a
+          <IslandAction
             href="mailto:lunadiazadrian@gmail.com"
-            aria-label="Send email"
-            className="size-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px]"
-          >
-            <span data-platform="email"><MailIcon className="size-6" /></span>
-          </a>
-          <a
+            label="Send email"
+            platform="email"
+            marker="data-email-btn"
+            icon={<MailIcon className="size-6" />}
+          />
+          <IslandAction
             href="/cv/adrian-luna-diaz.pdf"
             download
-            aria-label="Download CV"
-            data-cv-btn
-            className="group/cv h-12 flex items-center justify-center bg-icon-bg border border-border-light rounded-[8px] shrink-0 px-3"
-          >
-            <span data-platform="cv"><FileTextIcon className="size-6" /></span>
-            <span className="grid grid-cols-[0fr] group-hover/cv:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-out">
-              <span className="overflow-hidden">
-                <span className="block pl-2 text-[15px] leading-none text-primary font-medium whitespace-nowrap">CV</span>
-              </span>
-            </span>
-          </a>
+            label="Download CV"
+            platform="cv"
+            marker="data-cv-btn"
+            icon={<FileTextIcon className="size-6" />}
+          />
         </div>
       </div>
     </div>

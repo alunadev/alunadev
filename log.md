@@ -201,3 +201,10 @@
 - issue: none
 - done: `app/components/hero-section.tsx` — "Experience" fact now computed as `new Date().getFullYear() - CAREER_START_YEAR` (2014) instead of hardcoded "10 years". Verified in browser: shows "12 years" for 2026, no console errors (safe in a Server Component, no hydration risk).
 - next: still UNCOMMITTED alongside all other pending changes on `feat/portfolio-v2` — commit decision pending.
+
+## 2026-08-05 16:07 — DynamicIsland: "Download CV" + "Send email" hover labels
+- model: claude-opus-5
+- status: done (uncommitted)
+- issue: none
+- done: `app/components/dynamic-island.tsx` — CV hover label changed "CV" → "Download CV", and the email button now reveals "Send email" on hover with the same grid 0fr→1fr treatment. Extracted the (now 3x) repeated icon+label anchor into a local `IslandAction` component; buttons are tagged `data-cv-btn` / `data-email-btn` so the shell can pick its width. Shell widths: 368 resting → 474 (CV, +106) / 455 (email, +87), derived from canvas-measured Inter 500 15px label widths + pl-2. Verified live: hero-state screenshot shows "Download CV" revealed unclipped; nav-state DOM shows island 455px with the "Send email" label at full 87px, `clipped: false`, row overflow 0. `tsc --noEmit` and `next build` clean.
+- next: UNCOMMITTED on `main` (last commit ad066af). Commit when Adrian gives the go. Note `next-env.d.ts` was also touched by the build.
