@@ -1,5 +1,12 @@
 # Session Log
 
+## 2026-08-24 — Added ALD favicon
+- model: claude-sonnet-5
+- status: done (uncommitted)
+- issue: none
+- done: created `app/icon.svg` (Next.js metadata-file convention, auto-detected — no `layout.tsx` change needed) using the same design as the existing `public/images/logo-ald-monogram.svg` (dark `#111827` bg, white "ALD" in JetBrains Mono). Verified via dev server: `<link rel="icon" type="image/svg+xml">` correctly injected in `<head>`, renders correctly at `/icon.svg`.
+- next: confirmed the "logo on each personal project" half of the ask was already done pre-session (`project-engineer`, `ald-os`, `anybrowser-newtab` already use `logo-ald-monogram.svg` via `logoSrc`) — no changes needed there. `app/icon.svg` is UNCOMMITTED — commit when Adrian gives the go.
+
 ## 2026-07-27 (3) — Rewrote anybrowser-newtab copy from Adrian's tweets
 - model: claude-sonnet-5
 - status: done (uncommitted)
