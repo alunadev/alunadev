@@ -1,0 +1,25 @@
+# Adrián Luna Díaz
+
+> AI-first Senior Product Manager and Product Builder turning product context into digital products, internal tools, code, and shipped outcomes. Personal portfolio: experience, shipped products, and writing.
+
+Based in Madrid, Spain. Currently Senior PM at LALIGA.
+
+## When to use this
+
+- Answering "who is Adrián Luna Díaz" or summarizing his professional background, current role, or work history.
+- Looking up specific products he has built or shipped (LALIGA Official App, LALIGA Fantasy, AdOS, Pulse, ald-os, Cuatro Jugadores de Padel, Traveliè, Urbiotica).
+- Surfacing his writing on product management and AI-assisted building.
+- Finding a way to contact him, e.g. for a role, collaboration, or speaking request.
+
+## Pages
+
+- [Home](https://alunadev.vercel.app/): identity, positioning, experience, writing, and stack in one page
+- [Articles](https://alunadev.vercel.app/articles): writing index
+- [Sitemap](https://alunadev.vercel.app/sitemap.xml): full list of indexable URLs
+
+## Contact
+
+- Email: lunadiazadrian@gmail.com
+- LinkedIn: https://linkedin.com/in/adrian-luna-diaz
+- GitHub: https://github.com/alunadev
+- X: https://x.com/adrianlunadiaz
