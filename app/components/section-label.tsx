@@ -12,12 +12,16 @@ export const SECTION_LABEL_TEXT_CLASS =
 type Props = {
   children: React.ReactNode;
   right?: React.ReactNode;
+  // "h2" for homepage top-level sections (Experience, Writing, Stack) so the
+  // heading outline isn't flat under the hero's h1. Defaults to "p" for
+  // non-section uses (footer "FIND ME", case study sub-headers).
+  as?: "p" | "h2";
 };
 
-export function SectionLabel({ children, right }: Props) {
+export function SectionLabel({ children, right, as: Tag = "p" }: Props) {
   return (
     <div className="flex items-baseline justify-between gap-4 mb-8 md:mb-10 lg:mb-12">
-      <p className={SECTION_LABEL_TEXT_CLASS}>{children}</p>
+      <Tag className={SECTION_LABEL_TEXT_CLASS}>{children}</Tag>
       {right}
     </div>
   );

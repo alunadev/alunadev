@@ -1,5 +1,19 @@
 # Session Log
 
+## 2026-08-25 (2) — Agent-friendly 404 page
+- model: claude-sonnet-5
+- status: done (uncommitted)
+- issue: none
+- done: new `app/not-found.tsx` — minimal 404 using existing design tokens only (`SECTION_LABEL_TEXT_CLASS`, `font-serif`, `text-button-primary`): "404" label, heading, one line of copy, 5 recovery links (Home, Experience, Writing, Articles, Sitemap). Verified with `npm run start` + curl: real HTTP 404 status, body server-rendered (no JS needed), links present.
+- next: all 5 is-agentic.com quick wins from the entry below are now done. All UNCOMMITTED — commit when Adrian gives the go.
+
+## 2026-08-25 — is-agentic.com quick wins (JSON-LD, sitemap, metadata, headings)
+- model: claude-sonnet-5
+- status: done (uncommitted)
+- issue: none
+- done: ran `npx is-agentic alunadev.vercel.app` (score 61/100), then fixed 4 of 5 fixable issues without touching visual design: new `lib/site.ts` (SITE_URL), new `app/sitemap.ts` (from `getAllProjects`/`getAllArticles`, currently only lists `/` + `/articles` since no case study is `available` and the one article is `draft`), `app/layout.tsx` adds Person JSON-LD + `metadataBase`/`alternates.canonical`/`openGraph.images` (reuses existing hero photo, no new asset), `app/components/section-label.tsx` gained an `as="h2"` prop (default stays `p`) applied to Experience/Writing/Stack homepage sections, project titles in `experience-section.tsx` bumped h4→h3 for a clean h1→h2→h3 outline. Verified via `tsc --noEmit`, `next build`, and dev-server DOM diff — zero visual change.
+- next: 5th quick win (agent-friendly 404 body) done separately — see entry above. All changes UNCOMMITTED — commit when Adrian gives the go.
+
 ## 2026-08-24 — Added ALD favicon
 - model: claude-sonnet-5
 - status: done (uncommitted)

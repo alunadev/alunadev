@@ -68,7 +68,7 @@ export function StackSection() {
       <div className="flex justify-center px-6 pb-16 md:px-10 md:pb-20 lg:px-[8.75rem] lg:pb-[7.5rem]">
         <div className="w-full max-w-[1060px]">
 
-          <SectionLabel>Stack</SectionLabel>
+          <SectionLabel as="h2">Stack</SectionLabel>
 
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 

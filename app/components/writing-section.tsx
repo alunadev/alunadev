@@ -19,6 +19,7 @@ export function WritingSection({ articles }: Props) {
         <div className="w-full max-w-[1060px]">
 
           <SectionLabel
+            as="h2"
             right={
               <Link
                 href="/articles"

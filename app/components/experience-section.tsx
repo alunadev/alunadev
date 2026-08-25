@@ -79,7 +79,7 @@ export function ExperienceSection({ projects }: Props) {
       <div className="flex justify-center px-6 pt-16 pb-16 md:px-10 md:pt-20 md:pb-20 lg:px-[8.75rem] lg:pt-24 lg:pb-[7.5rem]">
         <div className="w-full max-w-[1060px]">
 
-          <SectionLabel>Experience</SectionLabel>
+          <SectionLabel as="h2">Experience</SectionLabel>
 
           {GROUPS.map((group) => {
             const groupProjects = projects.filter((p) => p.group === group.key);
@@ -113,9 +113,9 @@ export function ExperienceSection({ projects }: Props) {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-4">
                             <div className="min-w-0">
-                              <h4 className="font-serif text-[1.25rem] md:text-[1.375rem] lg:text-[1.5rem] text-primary leading-tight tracking-[0.01em] [text-wrap:balance]">
+                              <h3 className="font-serif text-[1.25rem] md:text-[1.375rem] lg:text-[1.5rem] text-primary leading-tight tracking-[0.01em] [text-wrap:balance]">
                                 {project.company}
-                              </h4>
+                              </h3>
                               <p className="text-[0.8125rem] md:text-[0.875rem] font-medium text-button-primary mt-1">
                                 {project.highlight}
                               </p>

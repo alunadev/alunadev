@@ -6,6 +6,8 @@ import { AgentationToolbar } from "@/app/components/agentation/AgentationToolbar
 import { LoadingScreen } from "@/app/components/loading-screen";
 import { CustomCursor } from "@/app/components/custom-cursor";
 import { ThemeToggle } from "@/app/components/theme-toggle";
+import { socialLinks } from "@/lib/portfolio-data";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const gelasio = Gelasio({
@@ -27,15 +29,49 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Adrián Luna Díaz — AI-first Senior Product Manager",
   description:
     "AI-first Senior Product Manager and Product Builder turning product context into digital products, internal tools, code, and shipped outcomes.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Adrián Luna Díaz — AI-first Senior Product Manager",
     description:
       "Portfolio of Adrián Luna Díaz, Senior PM at LALIGA. Product Builder, AI-first, data-driven.",
     type: "website",
+    url: "/",
+    images: [
+      {
+        url: "/images/Foto-adri-santan.jpg",
+        width: 1066,
+        height: 1600,
+        alt: "Adrián Luna Díaz",
+      },
+    ],
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Adrián Luna Díaz",
+  url: SITE_URL,
+  image: `${SITE_URL}/images/Foto-adri-santan.jpg`,
+  jobTitle: "Senior Product Manager",
+  description:
+    "AI-first Senior Product Manager and Product Builder turning product context into digital products, internal tools, code, and shipped outcomes.",
+  worksFor: {
+    "@type": "Organization",
+    name: "LALIGA",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Madrid",
+    addressCountry: "ES",
+  },
+  sameAs: socialLinks.map((link) => link.url),
 };
 
 export default function RootLayout({
@@ -45,6 +81,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${gelasio.variable} ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
       <body className="bg-surface antialiased" suppressHydrationWarning>
         {/* Apply saved theme before paint — light is the default */}
         <Script id="aluna-theme" strategy="beforeInteractive">
