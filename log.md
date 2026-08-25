@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-08-25 (3) — Commit+deploy is-agentic fixes, markdown negotiation, llms.txt
+- model: claude-sonnet-5
+- status: done (committed + pushed to main; deploy verification in progress via ScheduleWakeup)
+- issue: none
+- done: committed and pushed both prior entries' work directly to `main` (fast-forward, this worktree's branch has no PR): `9c59b66` (JSON-LD/sitemap/metadata/headings/404) then `db2752f` (new `proxy.ts` — Next 16 Proxy convention, not middleware.ts — serves real `text/markdown` on `/` per acceptmarkdown.com when `Accept: text/markdown`, with `Vary: Accept, Accept-Encoding`; new `public/llms.txt` per llmstxt.org spec with a "when to use this" section). Vercel auto-deploys `main` (confirmed via MCP `list_deployments`/`get_deployment`, projectId `prj_7c6jB26YDBELdSaimWdiwCwXqaCR`, teamId `team_eE9bLzJpcJ3xsOdKDTRqhLev`).
+- decided: skipped is-agentic's "Trust anchor pages" fix (/about, /contact, /privacy, 500+ chars each) — Adrian chose "Ninguna por ahora" when asked, since it needs new visible pages that don't fit the one-page portfolio format.
+- next: is-agentic.com's own rescan UI/CLI kept serving a stale cached report (same `19:14 UTC` snapshot) across 3 manual rescan attempts this session — fixes are verified live via `curl` against production instead. If Adrian wants the actual is-agentic score re-checked, try https://is-agentic.com/scan/alunadev.vercel.app again later (cache may have a cooldown).
+
 ## 2026-08-25 (2) — Agent-friendly 404 page
 - model: claude-sonnet-5
 - status: done (uncommitted)
