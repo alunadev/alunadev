@@ -12,8 +12,8 @@ Handles capacity planning, proposals, sponsors and packages for the product
 and commercial teams. Auth and security included.
 
 **ald-os**: My personal AI PM operating system for Claude Code and Codex. 
-The public part is ald-skills — 50+ reusable skills covering product, 
-engineering and operations.
+The public part is ald-skills — 49 reusable skills and 2 workflows covering 
+product, engineering, design, content and operations.
 
 **Fantasy MCP**: Internal read-only MCP server for the LALIGA Fantasy API, 
 used in product and data agent workflows.
@@ -23,7 +23,9 @@ maintain tracking plans directly alongside product screens.
 
 **[alunadev](https://alunadev.vercel.app)**: Personal portfolio, built with Claude Code.
 
-**[Cuatro Jugadores](https://www.cuatrojugadoresdepadel.com)**: Weekly padel 
-newsletter about technique and tactics.
+**[Cuatro Jugadores](https://www.cuatrojugadoresdepadel.com)**: Padel newsletter 
+with 44 published editions. Currently paused, with validated edition 
+content being republished on X ahead of a planned weekly return.
 
 **Cue**: A native macOS teleprompter I built with Electron for personal use.
+
