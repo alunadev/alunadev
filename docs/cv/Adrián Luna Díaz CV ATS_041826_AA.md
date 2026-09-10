@@ -18,7 +18,7 @@ Madrid, Spain | 2021 – Present
 
 * Managed the **end-to-end lifecycle of LALIGA’s official digital products** (App, Web, Fantasy), aligning product vision with company strategy and long-term growth goals. 
 
-* Architected the PLG monetization strategy for LALIGA Fantasy, shifting millions of users from ad-only revenue to subscription and IAP through contextualized paywall experimentation. Result: 325% revenue growth over two seasons, ARPU doubled YoY, 33% of premium revenue from Contextualized Conversion Flows for each premium feature.
+* Architected the PLG monetization strategy for LALIGA Fantasy, shifting millions of users from ad-only revenue to subscription and IAP through contextualized paywall experimentation. Result: 325% premium revenue growth over two seasons, ARPU doubled YoY, premium purchases from Contextualized Conversion Flows equal to 22% of total Fantasy revenue.
 
 * **Relaunched the LALIGA Official App** by **optimizing and personalizing** both **onboarding and user experience**, alongside the implementation of **MILIGA private area.** Led the integration of WSC Sports' AI content generation platform, defining the product architecture: event-trigger logic from match data, automated clip generation from broadcast footage, and personalization routing by team and interest segment. Eliminated the manual editorial step entirely. Delivered 260,000+ personalized highlight clips per season. Results: 20% D7 retention increase, 14% D21, 70% sessions per user uplift, significantly boosting fan engagement and amplifying content reach. 
 
