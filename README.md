@@ -1,29 +1,218 @@
-Hey, I'm Adrian.
+# ALD Skills
 
-Senior PM and Product Builder. I define product direction and build with 
-AI agents, from internal tools and agent infrastructure to shipped products.
+**49 skills and 2 workflows that turn Claude Code into a product team.**
 
-Currently leading the Official Products portfolio at LALIGA.
+This is the public layer of [ald-os](https://github.com/alunadev) — a personal
+AI Product Management Operating System I use daily to run the full product
+loop with AI agents: `problem → context → PRD → prototype → build → ship → learn`.
 
-## What I've built
+Every skill here is battle-tested on real work — PRDs, product strategy,
+full-stack side projects, design systems, interview prep, and content. Nothing
+in this library is theoretical: if a skill stopped earning its place in my
+daily workflow, it was rewritten or removed.
 
-**AdOS**: LALIGA's internal operating system for digital ad inventory. 
-Handles capacity planning, proposals, sponsors and packages for the product 
-and commercial teams. Auth and security included.
+Built by [Adrian Luna Díaz](https://alunadev.vercel.app) — AI-first Senior
+Product Manager and Product Builder.
 
-**ald-os**: My personal AI PM operating system for Claude Code and Codex. 
-The public part is ald-skills — 50+ reusable skills covering product, 
-engineering and operations.
+---
 
-**Fantasy MCP**: Internal read-only MCP server for the LALIGA Fantasy API, 
-used in product and data agent workflows.
+## Install
 
-**Pulse**: "Figma for analytics tagging." A shared workspace to define and 
-maintain tracking plans directly alongside product screens.
+This is a skills library, not a plugin — plain markdown files any agent can
+read. Two ways to wire it in:
 
-**[alunadev](https://alunadev.vercel.app)**: Personal portfolio, built with Claude Code.
+### Symlink into your agent's global skills folder (Recommended)
 
-**[Cuatro Jugadores](https://www.cuatrojugadoresdepadel.com)**: Weekly padel 
-newsletter about technique and tactics.
+```bash
+git clone https://github.com/alunadev/ald-skills.git
 
-**Cue**: A native macOS teleprompter I built with Electron for personal use.
+# Claude Code
+for d in ald-skills/skills/*/ ald-skills/workflows/*/; do
+  ln -s "$(pwd)/$d" ~/.claude/skills/"$(basename "$d")"
+done
+
+# Any other agent that reads a shared skills folder (Codex, Cursor, OpenCode, ...)
+for d in ald-skills/skills/*/ ald-skills/workflows/*/; do
+  ln -s "$(pwd)/$d" ~/.agents/skills/"$(basename "$d")"
+done
+```
+
+Skills become auto-discoverable in every session, on every project, with no
+extra registration step. Pull the repo to update; the symlinks pick it up
+immediately.
+
+### Alternative: Claude Code Plugin
+
+```bash
+claude plugin marketplace add alunadev/ald-skills
+claude plugin install ald-skills@ald-skills
+```
+
+Convenient for a one-line install, but plugin-scoped discovery has been
+unreliable outside the plugin's own working directory in testing — the
+symlink method above is what this repo's author actually runs.
+
+### Alternative: Git Submodule
+
+```bash
+git submodule add https://github.com/alunadev/ald-skills.git ald-skills
+git submodule update --init
+```
+
+Reference skills by path from your `CLAUDE.md`:
+`ald-skills/skills/<name>/SKILL.md`
+
+---
+
+## Why this exists
+
+AI coding agents are only as good as the context and process you give them.
+Instead of re-explaining how I write PRDs, structure discovery, design
+interfaces, or ship features in every session, each practice lives in a
+skill: a markdown file with YAML frontmatter that Claude loads on demand.
+
+The result is a system where product work compounds — every session starts
+with the accumulated judgment of all previous ones.
+
+---
+
+## Featured Skill Map
+
+### Product Management
+
+| Skill | Slash Command | Purpose |
+|-------|--------------|---------|
+| `prd-writer` | `/prd` | Decision-focused PRDs with behavior contracts |
+| `product-strategy` | `/strategy` | North Star, Opportunity Tree, 3 bets, OKRs |
+| `product-analytics` | `/metrics` `/tracking` | Metric tree, A/B design, event taxonomy, instrumentation, debugging — Amplitude standard |
+| `ai-product-strategy` | `/ai-strategy` | Wedge, RAG vs. fine-tuning, autonomy, defensibility |
+| `feature-to-outcome` | — | Translate stakeholder feature requests into validated outcomes |
+| `product-launch` | — | GTM brief, readiness checklists, rollout gates |
+| `competitor-analysis` | — | 5 competitor profiles, white space, where-to-win |
+
+### Engineering & Development
+
+| Skill | Purpose |
+|-------|---------|
+| `brainstorming` | Socratic discovery and technical design before code |
+| `api-design-principles` | REST and GraphQL API design conventions |
+| `error-handling-patterns` | Exceptions, Result types, graceful degradation |
+| `agent-workflow` | Design and architect multi-agent AI workflows |
+| `vercel-composition-patterns` | Compound components, CVA variants, React 19 |
+| `vercel-react-native-skills` | FlashList, Reanimated, expo-router, monorepo |
+
+### Design
+
+| Skill | Purpose |
+|-------|---------|
+| `design-md` | Extract brand systems into AI-readable DESIGN.md tokens |
+| `taste-skill` | Anti-slop frontend design for NEW UI, brief-first |
+| `taste-redesign` | Audit and elevate an EXISTING UI to premium quality |
+| `web-design-guidelines` | 100+ accessibility, UX and code quality rules |
+| `figma-reverse-engineering` | Figma designs → implementation-ready specs |
+| `frontend-slides` | Animation-rich HTML presentations, brief or PPT conversion |
+| `emil-design-eng` | Design engineering philosophy — animation decisions, component craft |
+| `animation` | Build, review, audit, or discover motion — four modes, one craft bar |
+| `animation-vocabulary` | Reverse-lookup glossary — name any motion effect |
+| `apple-design` | Fluid-interface physics — springs, gestures, momentum, materials |
+| `ask-sonner` | Setup, styling, and troubleshooting for the Sonner toast library |
+| `design-lab` | Interview → 5 live variants → real feedback → implementation plan (manual invoke) |
+| `prototype` | Fast no-interview picker — 3-5 variants of one component (auto-triggers on any UI decision) |
+| `grilling` | Short clarifying interview before non-trivial engineering work — requirement, scope, done-criteria |
+| `tdd` | Red-green-refactor discipline — test at the public interface, mock only at boundaries |
+| `codebase-design` | Deep-module vocabulary — the deletion test, one-vs-two-adapters seam rule |
+| `domain-modeling` | Project glossary (`CONTEXT.md`) + gated ADRs, reduced single-project scope |
+
+### Content & Communication
+
+| Skill | Purpose |
+|-------|---------|
+| `writing-system` | Orchestrator: idea capture, platform pick, blog + newsletter |
+| `linkedin-post-writer` | LinkedIn posts in your own voice, no growth-hacking |
+| `x-thread-writer` | Same voice standard, for X/Twitter threads |
+| `email-builder` | Bilingual emails: subject lines, CTAs, variants |
+| `changelog-generator` | Technical commits → user-friendly release notes |
+
+### Career & Interviews
+
+| Skill | Purpose |
+|-------|---------|
+| `case-study-solver` | Full methodology for PM/TPM hiring case studies, incl. wireframe standards |
+| `pm-interview-communication` | SCQA/STAR/C-F-I scaffolding, English + Spanish under pressure |
+
+### Documentation & Operations
+
+| Skill | Purpose |
+|-------|---------|
+| `maintaining-documentation` | Real canonical-docs structure; log.md vs. progress.txt |
+| `deploying-to-github` | Branching, PRs, code review, submodules, worktrees |
+| `writing-for-agents` | Writing standards for any doc an agent consumes — a skill, CLAUDE.md/AGENTS.md, a doc reached by a pointer |
+
+---
+
+## Workflows
+
+Chained skills with explicit gates between steps.
+
+| Workflow | Slash Command | Chain |
+|----------|--------------|-------|
+| `systematic-debugging` | `/debug` | Root-cause-first debugging protocol |
+| `content-publishing` | `/publish` | Idea capture → draft → edit → platform publish |
+
+---
+
+## Skill Format
+
+Every skill is a directory with a `SKILL.md` file:
+
+```
+skills/<name>/
+├── SKILL.md          ← Required: YAML frontmatter + skill body
+└── references/       ← Optional: large rule sets loaded on demand
+```
+
+YAML frontmatter:
+
+```yaml
+---
+name: skill-name                   # lowercase, hyphens
+description: Third person. What it does and when to trigger it. Max 1024 chars.
+---
+```
+
+See `CONTRIBUTING.md` for how a skill gets registered, symlinked, and committed.
+
+---
+
+## Full Skill Index
+
+See [skills/README.md](skills/README.md) for the complete index with trigger
+conditions and the PM → Engineering → Release workflow integration.
+
+---
+
+## The System Behind This
+
+ald-skills is one layer of a larger operating system for AI-first product
+work. The other layers (private): per-product context folders, an evidence
+and profile pipeline, session logs with automatic rollup between repos, and
+hooks that enforce the operating rules. The concept: **product work should
+compound, not restart every session.**
+
+If you're building something similar, the skill format plus the
+`CONTRIBUTING.md` is the best place to start.
+
+---
+
+## References
+
+- [Claude Code Skills Docs](https://code.claude.com/docs/en/skills)
+- [Awesome Claude Skills (VoltAgent)](https://github.com/VoltAgent/awesome-claude-skills)
+- [Agent Skills Marketplace](https://skills.sh/)
+
+---
+
+Built by [@adrianlunadiaz](https://x.com/adrianlunadiaz) ·
+[Portfolio](https://alunadev.vercel.app) ·
+[GitHub](https://github.com/alunadev)
+
