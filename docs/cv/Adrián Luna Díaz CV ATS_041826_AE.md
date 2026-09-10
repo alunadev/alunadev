@@ -18,7 +18,7 @@ Madrid, Spain | 2021 – Present
 
 * Managed the **end-to-end lifecycle of LALIGA’s official digital products** (App, Web, Fantasy), aligning product vision with company strategy and long-term growth goals. 
 
-* Architected the PLG monetization strategy for LALIGA Fantasy, shifting millions of users from an ad-only model to subscription and IAP through A/B experimentation on paywall placement and pricing tiers. Contextualized Conversion Flows: paywalls triggered at high-intent feature moments, validated via cohort analysis. Result: 33% of total premium revenue, 325% revenue growth over two seasons, ARPU doubled YoY, and 40% lower churn for contextual acquirers vs. store-screen acquisition paths.
+* Architected the PLG monetization strategy for LALIGA Fantasy, shifting millions of users from an ad-only model to subscription and IAP through A/B experimentation on paywall placement and pricing tiers. Contextualized Conversion Flows: paywalls triggered at high-intent feature moments, validated via cohort analysis. Result: premium purchases from contextual flows equal to 22% of total Fantasy revenue, 325% premium revenue growth over two seasons, ARPU doubled YoY, and 40% lower churn for contextual acquirers vs. store-screen acquisition paths.
 
 * Relaunched the Official LALIGA App (0 to 1\) by rebuilding onboarding from cohort drop-off data, shipping AI-powered content personalization, and benchmarking the new experience against pre-launch cohort baselines. Results: 20% D7 retention increase, 14% D21, 70% sessions per user uplift, 260,000+ personalized highlight clips per season."
 
