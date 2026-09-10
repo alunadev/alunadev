@@ -303,7 +303,7 @@ caseStudy: available             # Button state — see below
 | mockupSrc | `/images/mockups/ftsy-mockup-leagues-team.png` |
 | mockupBg | `#143d69` |
 | description | `Designed and launched LALIGA Fantasy's monetization model from zero: a PLG-based freemium tier with premium features that grew revenue by 325% over two seasons.` |
-| achievements | `Premium purchases +325% over two seasons` · `ARPU doubled year-over-year` · `22% of total premium sales from contextualized conversion flows` |
+| achievements | `Premium revenue +325% over two seasons` · `ARPU doubled year-over-year` · `Premium purchases from contextual flows equal to 22% of total Fantasy revenue` |
 | website | `laliga.com` |
 | caseStudy | `not-ready` |
 
@@ -317,8 +317,8 @@ caseStudy: available             # Button state — see below
 | logoSrc | `/images/logo-cuatrojugadores-appIcon.png` |
 | mockupSrc | *(none)* |
 | mockupBg | `#f0fdf4` |
-| description | `A bi-weekly newsletter delivering four actionable padel improvement tips every Thursday.` |
-| achievements | `Padel lessons, delivered to your inbox` · `Stack: Substack, Notion and Make` |
+| description | `A padel newsletter with 44 published editions, currently paused, with a weekly return planned.` |
+| achievements | `44 editions published` · `Four actionable tips per edition` · `Validated archive content now republished on X` |
 | website | `cuatrojugadoresdepadel.com` |
 | caseStudy | `false` |
 
@@ -438,7 +438,7 @@ Change `caseStudy: not-ready` → `caseStudy: available`. The page auto-generate
 - Ran iterative A/B tests on paywall copy, pricing tiers, and placement (Optimizely)
 - Collaborated with Design, Dev, Growth, and Marketing teams on end-to-end implementation
 
-**Impact:** Premium purchases +325% · ARPU doubled YoY · 22% of premium sales from contextualized flows
+**Impact:** Premium revenue +325% over two seasons · ARPU doubled YoY · Premium purchases from contextual flows equal to 22% of total Fantasy revenue
 
 **Tools:** Optimizely · Amplitude · Figma · Jira · Google Optimize
 
@@ -531,3 +531,4 @@ public/
 | Edit case study detail content | Update `problem`, `approach`, `impact`, `tools` in the `.mdx` file |
 | Add a new project | Duplicate a `.mdx` file, rename with next number, fill all fields |
 | Add a new logo or mockup image | Drop in `public/images/`, reference in `.mdx` frontmatter, commit |
+
